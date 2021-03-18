@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <title>Registration</title>
+</head>
+<body>
+    <header>
+        <div style="height:40px;border:2px solid black;"class="row bg-dark text-white">
+            <div class="col md-6">
+                <img alt="3 points"  th:src="@{/images/troispoints.png}" />
+            </div>
+            <div class="col md-6 pt-1">
+                pay my buddy
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+
+                <!-- success message -->
+                <div th:if="${param.success}">
+                    <div class="alert alert-info">You've successfully registered
+                        to our awesome app!</div>
+                </div>
+
+                <h2 class="offset-md-10">Registration</h2>
+
+                <form th:action="@{/registration}" method="post" th:object="${user}">
+                    <div class="form-group">
+                        <label class="control-label offset-md-5" for="firstName"> First Name </label>
+                        <input id="firstName" class="form-control offset-md-5" th:field="*{firstName}"
+                               required autofocus="autofocus" />
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label offset-md-5" for="lastName"> Last Name </label> <input
+                            id="lastName" class="form-control offset-md-5" th:field="*{lastName}"
+                            required autofocus="autofocus" />
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label offset-md-5" for="email"> Email </label>
+                        <input
+                            id="email" class="form-control offset-md-5" th:field="*{email}" required
+                            autofocus="autofocus" />
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label offset-md-5" for="password"> Password </label>
+                        <input
+                            id="password" class="form-control offset-md-5" type="password"
+                            th:field="*{password}" required autofocus="autofocus" />
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label offset-md-5" for="bank"> Bank </label>
+                        <select class="form-control offset-md-5" id="bank" name="bank">
+                            <option value=""></option>
+                            <option th:each="bank : ${banks}"
+                                    th:value="${bank.name}"
+                                    th:text="${bank.name}"> </option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label offset-md-5" for="iban"> Iban </label> <input
+                            id="iban" class="form-control offset-md-5" th:field="*{iban}" required
+                            autofocus="autofocus" />
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success offset-md-10">Register</button>
+
+                    </div>
+                    <div>
+                        <span class="pt-3 offset-md-5">Already registered? <a href="/" th:href="@{/login}">Login
+        here</a></span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

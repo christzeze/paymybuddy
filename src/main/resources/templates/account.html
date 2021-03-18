@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <title>home</title>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div style="height:40px;border:2px solid black;"class="row bg-dark text-white">
+                <div>
+                    <div class="imgAbt">
+                        <img width="100" height="30" th:src="@{/images/troispoints.png}"/>
+                        <p class="text-white offset-md-4"></p>
+                    </div>
+                </div>
+                <div class="col md-4 offset-md-4" text-white>
+                    <p class="text-white">pay my buddy</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- A horizontal navbar that becomes vertical on small screens -->
+    <nav class="navbar navbar-expand-lg bg-white">
+        <!-- Links -->
+        <ul class="navbar-nav offset-md-7">
+            <li class="nav-item">
+                <a class="nav-link" href="home">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="account">Account</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="transfer">Transfer</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Profile</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Contact</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/logout}">Log of</a>
+            </li>
+        </ul>
+    </nav>
+
+
+    <div class="container">
+        <form class="offset-md-3" th:action="@{/account}" method="post" th:object="${account}">
+            <div class="row">
+                <div class="col-auto pt-5 pl-3">
+                    <label class="control-label"> Bank </label>
+                </div>
+
+                <div class="col-6 pt-5 ">
+                    <select class="form-control" id="banks" name="banks" th:field="*{bank}" >
+                        <option value=""></option>
+                        <option th:each="bank : ${banks}"
+                                th:value="${bank.name}"
+                                th:text="${bank.name}"> </option>
+                    </select>
+                </div>
+
+                <div class = "pl-4 pt-5">
+                    <a href="bankregistration">Saisir une nouvelle banque</a>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-1 pt-5">
+                    <label class="control-label"> Iban </label>
+                </div>
+                <div class="col-6 pt-5">
+                    <input
+                        id="iban" class="form-control" th:field="*{iban}"
+                        required
+                        autofocus="autofocus"
+                    />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4 pt-5">
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success offset-md-10">Register</button>
+
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+
+</body>
+</html>
