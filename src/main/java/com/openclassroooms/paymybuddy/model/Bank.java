@@ -3,6 +3,7 @@ package com.openclassroooms.paymybuddy.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
@@ -14,6 +15,9 @@ public class Bank {
     private String address;
     private String zip;
     private String City;
+    @OneToMany
+    @JoinColumn(name = "bankId")
+    private List<Account> accounts;
 
     public Bank() {
     }

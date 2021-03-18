@@ -24,29 +24,38 @@
     </header>
 
     <!-- A horizontal navbar that becomes vertical on small screens -->
-    <nav class="navbar navbar-expand-lg bg-white">
-        <!-- Links -->
-        <ul class="navbar-nav offset-md-7">
-            <li class="nav-item">
-                <a class="nav-link" href="home">Home</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="account">Account</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="transfer">Transfer</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Profile</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Contact</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/logout}">Log of</a>
-            </li>
-        </ul>
-    </nav>
+    <div container>
+        <div class="row align-items-center">
+            <div class="col" >
+                <button a href="home.html" type="button" class="btn btn-success offset-md-5 pt-3" >Pay My Buddy</button>
+            </div>
+            <div class="col">
+                <nav class="navbar navbar-expand-lg bg-white">
+                    <!-- Links -->
+                    <ul class="navbar-nav offset-md-2">
+                        <li class="nav-item">
+                                <a class="nav-link" href="home">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="account">Account</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="transfer">Transfer</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Profile</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Contact</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/logout}">Log of</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
 
 
     <div class="container">
