@@ -15,17 +15,20 @@ public class Transaction {
     private double amount;
     private LocalDate date;
     @ManyToOne()
-    @JoinColumn(name = "userSender", referencedColumnName = "id")
-    private User userSender;
+    @JoinColumn(name = "emitterId", referencedColumnName = "id")
+    private Account emitter;
     @ManyToOne()
-    @JoinColumn(name = "userReceiver", referencedColumnName = "id")
-    private User userReceiver;
+    @JoinColumn(name = "receivedId", referencedColumnName = "id")
+    private Account receiver;
 
-    public Transaction(String designation, double amount, LocalDate date, User userSender, User userReceiver) {
+    public Transaction() {
+    }
+
+    public Transaction(String designation, double amount, LocalDate date, Account userSender, Account userReceiver) {
         this.designation = designation;
         this.amount = amount;
         this.date = date;
-        this.userSender = userSender;
-        this.userReceiver = userReceiver;
+        this.emitter = userSender;
+        this.receiver = userReceiver;
     }
 }
