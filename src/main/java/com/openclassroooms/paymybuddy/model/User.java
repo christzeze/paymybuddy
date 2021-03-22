@@ -12,6 +12,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     private String firstName;
     private String lastName;
     private String email;
@@ -19,6 +20,7 @@ public class User {
     @OneToMany
     @JoinColumn(name = "userId")
     private List<Account> accounts;
+    
     public User() {
     }
 

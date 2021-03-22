@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+  <title>home</title>
+</head>
+
+<body>
+  <header>
+    <div class="container">
+      <div style="height: 40px; border: 2px solid black;" class="row bg-dark text-white">
+        <div>
+          <div class="imgAbt">
+            <img width="100" height="30" th:src="@{/images/troispoints.png}" src="../static/images/troispoints.png">
+            <p class="text-white offset-md-4"></p>
+          </div>
+        </div>
+        <div class="col md-4 offset-md-4" text-white="">
+          <p class="text-white">pay my buddy</p>
+        </div>
+      </div>
+    </div>
+  </header>
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col">
+        <a href="home" class="btn btn-success pt-3" style="">Pay My Buddy</a>
+      </div>
+      <div class="col">
+        <nav class="navbar navbar-expand-lg bg-white">
+          <!-- Links -->
+          <ul class="navbar-nav offset-md-2">
+            <li class="nav-item">
+              <a class="nav-link" href="home">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="account">Account</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="transfer">Transfer</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Profile</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Contact</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" th:href="@{/logout}">Log of</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row justify-content-start bg-light">
+      <div class="col-md-auto" style="">
+        <h2 class="pt-2 pb-2">Home</h2>
+      </div>
+      <div class="col-md-auto" style="">
+        <h2 class="pt-2 pb-2 text-secondary">/&nbsp;&nbsp;&nbsp;Transfer</h2>
+      </div>
+    </div>
+  </div>
+  <!-- success message -->
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3" style="">
+        <div th:if="${param.success}">
+          <div class="alert alert-info">You've successfully transfer your money!</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="py-1">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 bg-light">
+          <h5 class="">Send money<br></h5>
+        </div>
+        <div class="col-md-6 text-right"><a class="btn btn-primary" href="#">Add Connection</a></div>
+      </div>
+    </div>
+  </div>
+  <div class="my-3 py-1" style="">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 text-center">
+          <div class="btn-group border my-1">
+            <button class="btn dropdown-toggle btn-light" data-toggle="dropdown"> Select a connection</button>
+            <div class="dropdown-menu"> <a class="dropdown-item" href="#">Action</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#">Separated link</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <form class="">
+            <div class="form-group">
+              <div class="input-group"><input type="number" class="form-control form-control-lg mr-5" id="inlineFormInputGroup" placeholder="0€"></div>
+            </div>
+          </form>
+        </div>
+        <div class="col-md-4"><a class="btn btn-success btn-block my-1" href="#">Pay<br></a></div>
+      </div>
+    </div>
+  </div>
+  <div class="py-3">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 text-left">
+          <h5 class="">My Transactions<br></h5>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="py-2">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 bg-success">
+          <h6 class="text-center">Connections<br></h6>
+        </div>
+        <div class="col-md-4 bg-success">
+          <h6 class="text-center bg-success">Description</h6>
+        </div>
+        <div class="col-md-4 bg-success">
+          <h6 class="text-center">Amount<br></h6>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4"></div>
+        <div class="col-md-4"></div>
+      </div>
+    </div>
+  </div>
+  <div class="">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4"></div>
+        <div class="col-md-4"></div>
+      </div>
+    </div>
+  </div>
+  <div class="">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4"></div>
+        <div class="col-md-4"></div>
+      </div>
+    </div>
+  </div>
+  <div class="py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+          <ul class="pagination mx-5">
+            <li class="page-item"> <a class="page-link" href="#"> <span>«</span></a> </li>
+            <li class="page-item active"> <a class="page-link" href="#">1</a> </li>
+            <li class="page-item"> <a class="page-link" href="#">2</a> </li>
+            <li class="page-item"> <a class="page-link" href="#">3</a> </li>
+            <li class="page-item"> <a class="page-link" href="#">4</a> </li>
+            <li class="page-item"> <a class="page-link" href="#"> <span>»</span></a> </li>
+          </ul>
+        </div>
+        <div class="col-md-4"></div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
