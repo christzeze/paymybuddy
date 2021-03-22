@@ -6,23 +6,25 @@ import javax.persistence.*;
 
 @Entity
 @Data
-
 public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @ManyToOne()
     @JoinColumn(name = "userId", referencedColumnName = "id")
-    private User userId;
+    private User user;
     @ManyToOne()
     @JoinColumn(name = "bankId", referencedColumnName = "id")
-    private Bank bankId;
+    private Bank bank;
     String iban;
     double sold;
 
-    public Account(User userId, Bank bankId, String iban, double sold) {
-        this.userId = userId;
-        this.bankId = bankId;
+    public Account() {
+    }
+
+    public Account(User user, Bank bankId, String iban, double sold) {
+        this.user = user;
+        this.bank = bankId;
         this.iban = iban;
         this.sold = sold;
     }

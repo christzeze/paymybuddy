@@ -20,4 +20,6 @@ public class ForeignTransaction {
     @JoinColumn(name = "userReceiver", referencedColumnName = "id")
     private Contact userReceiver;
 
+    public ForeignTransaction() {
+    }
 }
