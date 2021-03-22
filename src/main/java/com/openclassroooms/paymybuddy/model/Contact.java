@@ -12,7 +12,11 @@ public class Contact {
     private int id;
     private String lastName;
     private String email;
+    private String iban;
     @ManyToOne()
     @JoinColumn(name = "userId", referencedColumnName = "id")
     private User user;
+
+    public Contact() {
+    }
 }
