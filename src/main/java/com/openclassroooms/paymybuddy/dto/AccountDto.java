@@ -4,7 +4,8 @@ import lombok.Data;
 
 @Data
 public class AccountDto {
-    String iban;
-    double sold;
-    String bank;
+    private int id;
+    private String iban;
+    private double sold;
+    private BankDto bank;
 }

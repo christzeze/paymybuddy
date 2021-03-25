@@ -5,7 +5,6 @@ import com.openclassroooms.paymybuddy.model.Account;
 import com.openclassroooms.paymybuddy.model.Bank;
 import com.openclassroooms.paymybuddy.model.User;
 import com.openclassroooms.paymybuddy.repository.AccountRepository;
-import com.openclassroooms.paymybuddy.repository.BankRepository;
 import org.springframework.stereotype.Service;
 
 @Service

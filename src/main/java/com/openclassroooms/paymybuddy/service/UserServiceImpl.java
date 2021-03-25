@@ -1,9 +1,7 @@
 package com.openclassroooms.paymybuddy.service;
 
 import com.openclassroooms.paymybuddy.dto.UserRegistrationDto;
-import com.openclassroooms.paymybuddy.model.Bank;
 import com.openclassroooms.paymybuddy.model.User;
-import com.openclassroooms.paymybuddy.repository.BankRepository;
 import com.openclassroooms.paymybuddy.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
