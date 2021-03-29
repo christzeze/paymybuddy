@@ -62,14 +62,14 @@
 
 
     <div class="container">
-        <form class="offset-md-3" th:action="@{/account}" method="post" th:object="${account}">
+        <form class="offset-md-3" th:action="@{/account}" method="post">
             <div class="row">
                 <div class="col-auto pt-5 pl-3">
                     <label class="control-label"> Bank </label>
                 </div>
 
                 <div class="col-6 pt-5 ">
-                    <select class="form-control" id="banks" name="banks" th:field="*{bank}" >
+                    <select class="form-control" id="banks" name="banks">
                         <option value=""></option>
                         <option th:each="bank : ${banks}"
                                 th:value="${bank.name}"
@@ -88,7 +88,7 @@
                 </div>
                 <div class="col-6 pt-5">
                     <input
-                        id="iban" class="form-control" th:field="*{iban}"
+                        id="iban" class="form-control" name="iban"
                         required
                         autofocus="autofocus"
                     />

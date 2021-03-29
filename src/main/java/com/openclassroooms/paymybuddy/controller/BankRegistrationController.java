@@ -2,10 +2,13 @@ package com.openclassroooms.paymybuddy.controller;
 
 import com.openclassroooms.paymybuddy.dto.BankDto;
 import com.openclassroooms.paymybuddy.dto.UserRegistrationDto;
+import com.openclassroooms.paymybuddy.mapper.AccountMapper;
+import com.openclassroooms.paymybuddy.mapper.BankMapper;
 import com.openclassroooms.paymybuddy.model.Bank;
 import com.openclassroooms.paymybuddy.repository.BankRepository;
 import com.openclassroooms.paymybuddy.service.BankService;
 import com.openclassroooms.paymybuddy.service.UserService;
+import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,7 +24,8 @@ import java.util.List;
 
 public class BankRegistrationController {
 
-    private BankService bankService;
+    private final BankService bankService;
+    private final BankMapper bankMapper = Mappers.getMapper( BankMapper.class );
 
 
     public BankRegistrationController(BankService bankService) {
@@ -41,7 +45,7 @@ public class BankRegistrationController {
 
     @PostMapping
     public String registerBank(@ModelAttribute("bank") BankDto bankDto) {
-        bankService.createAccount(bankDto);
+        bankService.createAccount(bankMapper.toEntity(bankDto));
         return "redirect:/home";
     }
 }

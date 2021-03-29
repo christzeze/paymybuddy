@@ -1,9 +1,8 @@
 package com.openclassroooms.paymybuddy.repository;
 
-import com.openclassroooms.paymybuddy.model.Bank;
 import com.openclassroooms.paymybuddy.model.Transaction;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface TransactionRepository extends CrudRepository<Transaction,Integer> {
-    
+public interface TransactionRepository extends JpaRepository<Transaction,Integer> {
+
 }
