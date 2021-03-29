@@ -1,10 +1,12 @@
 package com.openclassroooms.paymybuddy.service;
 
-import com.openclassroooms.paymybuddy.dto.BankDto;
 import com.openclassroooms.paymybuddy.model.Bank;
 
+import java.util.List;
+
 public interface BankService {
-    public Bank createAccount(BankDto bankDto);
-    public void updateAccount(Bank bank);
+    Bank createAccount(Bank bank);
+    void updateAccount(Bank bank);
+    List<Bank> findAll();
 
 }

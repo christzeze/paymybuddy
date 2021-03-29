@@ -1,13 +1,13 @@
 package com.openclassroooms.paymybuddy.service;
 
-import com.openclassroooms.paymybuddy.dto.BankDto;
 import com.openclassroooms.paymybuddy.model.Bank;
 import com.openclassroooms.paymybuddy.repository.BankRepository;
-import com.openclassroooms.paymybuddy.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
-public class BankServiceImpl implements BankService{
+public class BankServiceImpl implements BankService {
 
     private BankRepository bankRepository;
 
@@ -17,15 +17,17 @@ public class BankServiceImpl implements BankService{
     }
 
     @Override
-    public Bank createAccount(BankDto bankDto) {
-        Bank bank=new Bank(bankDto.getName(),bankDto.getAddress(),bankDto.getZip(),bankDto.getCity());
-        Bank bankSaved=bankRepository.save(bank);
-        return bankSaved;
+    public Bank createAccount(Bank bank) {
+        return bankRepository.save(bank);
     }
 
     @Override
     public void updateAccount(Bank bank) {
-
+        bankRepository.save(bank);
     }
 
+    @Override
+    public List<Bank> findAll() {
+        return bankRepository.findAll();
+    }
 }
