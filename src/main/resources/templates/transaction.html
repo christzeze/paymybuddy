@@ -32,7 +32,7 @@
       <div class="col">
         <nav class="navbar navbar-expand-lg bg-white">
           <!-- Links -->
-          <ul class="navbar-nav offset-md-2">
+          <ul class="navbar-nav">
             <li class="nav-item">
               <a class="nav-link" href="home">Home</a>
             </li>
@@ -40,13 +40,16 @@
               <a class="nav-link" href="account">Account</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="transfer">Transfer</a>
+              <a class="nav-link" href="transaction">Transfer</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">Profile</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Contact</a>
+              <a class="nav-link" href="contact">Contact</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Contact us</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" th:href="@{/logout}">Log of</a>
@@ -82,33 +85,38 @@
         <div class="col-md-6 bg-light">
           <h5 class="">Send money<br></h5>
         </div>
-        <div class="col-md-6 text-right"><a class="btn btn-primary" href="#">Add Connection</a></div>
+        <div class="col-md-6 text-right"><a class="btn btn-primary" href="contact">Add Connection</a></div>
       </div>
     </div>
   </div>
-  <div class="my-3 py-1" style="">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-4 text-center">
-          <div class="btn-group border my-1">
-            <button class="btn dropdown-toggle btn-light" data-toggle="dropdown"> Select a connection</button>
-            <div class="dropdown-menu"> <a class="dropdown-item" href="#">Action</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">Separated link</a>
-            </div>
+  <form class="" th:action="@{/transaction}" method="post" th:object="${transaction}">
+    <div class="my-3 py-1" style="">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4">
+               <select class="form-control " id="contacts" name="contacts" th:field="*{receiver}" >
+                 <option value=""></option>
+                 <option th:each="contact : ${contacts}"
+                         th:value="${contact}"
+                         th:text="${contact.email}"> </option>
+               </select>
+          </div>
+          <div class="col-md-4">
+            <form class="">
+              <div class="form-group">
+                <div class="input-group"><input type="number" class="form-control form-control-lg mr-5" id="inlineFormInputGroup" placeholder="0€"></div>
+              </div>
+            </form>
+          </div>
+          <div class="col-md-4">
+            <button type="submit" class="btn btn-success btn-block my-1 ">Pay</button>
+            <!-- <a class="btn btn-success btn-block my-1" href="#">Pay<br></a> -->
           </div>
         </div>
-        <div class="col-md-4">
-          <form class="">
-            <div class="form-group">
-              <div class="input-group"><input type="number" class="form-control form-control-lg mr-5" id="inlineFormInputGroup" placeholder="0€"></div>
-            </div>
-          </form>
-        </div>
-        <div class="col-md-4"><a class="btn btn-success btn-block my-1" href="#">Pay<br></a></div>
       </div>
     </div>
-  </div>
+  </form>
+
   <div class="py-3">
     <div class="container">
       <div class="row">
@@ -135,31 +143,15 @@
   </div>
   <div class="">
     <div class="container">
-      <div class="row">
-        <div class="col-md-4"></div>
-        <div class="col-md-4"></div>
-        <div class="col-md-4"></div>
+      <div class="row" data-th-each="p : ${ transaction }">
+        <div class="col-md-4" data-th-text="${ p.receiver }"></div>
+        <div class="col-md-4" data-th-text="${ p.designation}"></div>
+          <div class="col-md-4" data-th-text="${ p.amount }"></div>
       </div>
     </div>
   </div>
-  <div class="">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-4"></div>
-        <div class="col-md-4"></div>
-        <div class="col-md-4"></div>
-      </div>
-    </div>
-  </div>
-  <div class="">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-4"></div>
-        <div class="col-md-4"></div>
-        <div class="col-md-4"></div>
-      </div>
-    </div>
-  </div>
+
+
   <div class="py-5">
     <div class="container">
       <div class="row">

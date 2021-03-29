@@ -20,6 +20,7 @@ import java.util.List;
 @RequestMapping("/bankregistration")
 
 public class BankRegistrationController {
+
     private BankService bankService;
 
 

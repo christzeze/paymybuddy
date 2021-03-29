@@ -1,10 +1,16 @@
 package com.openclassroooms.paymybuddy.mapper;
 
+import com.openclassroooms.paymybuddy.dto.AccountDto;
 import com.openclassroooms.paymybuddy.dto.UserDto;
+import com.openclassroooms.paymybuddy.model.Account;
 import com.openclassroooms.paymybuddy.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-public class UserMapper extends AbstratMapper<User,UserDto> {
+@Component
+
+public class UserMapper extends AbstratMapper<User, UserDto> {
+
 
     @Autowired
     AccountMapper accountMapper;
@@ -14,17 +20,17 @@ public class UserMapper extends AbstratMapper<User,UserDto> {
         if (userDto ==null){
             return null;
         }
-        User userEntity=new User;
+        User userEntity=new User();
         userEntity.setFirstName(userDto.getFirstName());
         userEntity.setLastName(userDto.getLastName());
         userEntity.setId(userDto.getId());
         userEntity.setEmail(userDto.getEmail());
-        userEntity.setAccounts(accountMapper.toEntity(userDto.getAccounts()));
+        userEntity.setAccounts(accountMapper.toEntities(userDto.getAccounts()));
         return userEntity;
     }
 
     @Override
-    public UserDto toDto(User user) {
+    public UserDto toDTO(User user) {
         if(user==null) {
             return null;
         }
@@ -34,6 +40,7 @@ public class UserMapper extends AbstratMapper<User,UserDto> {
         userDto.setLastName(user.getLastName());
         userDto.setEmail(user.getEmail());
         userDto.setPassword(user.getPassword());
-        userDto.setAccounts(user.getAccounts());
+        //userDto.setAccounts(accountMapper.toDTO(user.getAccounts()));
+        return userDto;
     }
 }

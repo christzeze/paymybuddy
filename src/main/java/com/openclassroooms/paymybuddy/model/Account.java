@@ -11,7 +11,7 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @ManyToOne()
-    @JoinColumn(name = "userId", referencedColumnName = "id")
+    @JoinColumn(name = "userId", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_bank_account_user1"))
     private User user;
     @ManyToOne()
     @JoinColumn(name = "bankId", referencedColumnName = "id")

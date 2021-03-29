@@ -11,12 +11,14 @@ public class AccountMapper extends AbstratMapper<Account, AccountDto> {
     @Autowired
     private BankMapper bankMapper;
 
+    @Autowired
+    private UserMapper userMapper;
+
     public AccountDto toDTO(Account account) {
         if (account == null) {
             return null;
         }
         AccountDto accountDto = new AccountDto();
-        //accountDto.setBank(account.getBank().getName());
         accountDto.setBank(bankMapper.toDTO(account.getBank()));
         accountDto.setIban(account.getIban());
         accountDto.setSold(account.getSold());
@@ -33,7 +35,7 @@ public class AccountMapper extends AbstratMapper<Account, AccountDto> {
         accountEntity.setIban(account.getIban());
         accountEntity.setId(account.getId()); // todo setter le vrai ID
         accountEntity.setSold(account.getSold());
-        accountEntity.setUser(new User()); // todo utiliser UserMapper
-        return null;
+        accountEntity.setUser(userMapper.toEntity(account.getUser())); // todo utiliser UserMapper
+        return accountEntity;
     }
 }

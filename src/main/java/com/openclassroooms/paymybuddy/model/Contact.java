@@ -19,4 +19,10 @@ public class Contact {
 
     public Contact() {
     }
+
+    public Contact(String lastName, String email, String iban) {
+        this.lastName = lastName;
+        this.email = email;
+        this.iban = iban;
+    }
 }

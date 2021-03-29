@@ -19,6 +19,7 @@ public class User {
     private String password;
     @OneToMany
     @JoinColumn(name = "userId")
+
     private List<Account> accounts;
     
     public User() {

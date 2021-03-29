@@ -1,6 +1,8 @@
 package com.openclassroooms.paymybuddy.controller;
 
 import com.openclassroooms.paymybuddy.dto.AccountDto;
+import com.openclassroooms.paymybuddy.mapper.AccountMapper;
+import com.openclassroooms.paymybuddy.model.Account;
 import com.openclassroooms.paymybuddy.model.Bank;
 import com.openclassroooms.paymybuddy.model.User;
 import com.openclassroooms.paymybuddy.repository.BankRepository;
@@ -26,6 +28,8 @@ public class AccountController {
     @Autowired
     private UserRepository userRepository;
 
+    private Account account;
+
     public AccountController(AccountService accountService) {
         super();
         this.accountService = accountService;
@@ -40,16 +44,18 @@ public class AccountController {
     public String showRegistrationAccountForm(Model model) {
         Iterable<Bank> banks = bankRepository.findAll();
         model.addAttribute("banks", banks);
+        model.addAttribute("bank",new Bank());
         return "account";
     }
 
     @PostMapping
-    public String registerUserAccount(@ModelAttribute("account") AccountDto accountDto) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String name = auth.getName();
-        User user=userRepository.findByEmail(name);
-        Bank bank=bankRepository.findByName(accountDto.getBank());
-        accountService.createAccount(accountDto,user,bank);
+    public String registerUserAccount(@ModelAttribute("account")AccountDto accountDto) {
+        //Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        //String name = auth.getName();
+        //User user=userRepository.findByEmail(name);
+        //Bank bank=bankRepository.findByName(accountDto.getBank().getName());
+        //accountService.createAccount(accountDto,user,bank);
+        accountService.createAccount(accountDto);
         return "redirect:/home";
     }
 }
