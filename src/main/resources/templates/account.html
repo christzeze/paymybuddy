@@ -69,11 +69,11 @@
                 </div>
 
                 <div class="col-6 pt-5 ">
-                    <select class="form-control" id="banks" name="banks">
-                        <option value=""></option>
+                    <select id="bank" th:field="*{bank}" class="form-control">
                         <option th:each="bank : ${banks}"
-                                th:value="${bank.name}"
-                                th:text="${bank.name}"> </option>
+                                th:value="${bank.id}"
+                                th:text="${bank.name}">
+                        </option>
                     </select>
                 </div>
 

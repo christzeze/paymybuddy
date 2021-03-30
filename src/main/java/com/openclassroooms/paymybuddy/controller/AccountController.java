@@ -1,7 +1,9 @@
 package com.openclassroooms.paymybuddy.controller;
 
 import com.openclassroooms.paymybuddy.dto.AccountDto;
+import com.openclassroooms.paymybuddy.dto.BankDto;
 import com.openclassroooms.paymybuddy.mapper.AccountMapper;
+import com.openclassroooms.paymybuddy.model.Account;
 import com.openclassroooms.paymybuddy.model.Bank;
 import com.openclassroooms.paymybuddy.service.AccountService;
 import com.openclassroooms.paymybuddy.service.BankService;
@@ -37,11 +39,12 @@ public class AccountController {
         List<Bank> banks = bankService.findAll();
         model.addAttribute("banks", banks);
         model.addAttribute("bank",new Bank());
+
         return "account";
     }
 
     @PostMapping
-    public String registerUserAccount(@ModelAttribute("account")AccountDto accountDto) {
+    public String registerUserAccount(@ModelAttribute("account") AccountDto accountDto) {
         accountService.createAccount(accountMapper.toEntity(accountDto));
         return "redirect:/home";
     }
