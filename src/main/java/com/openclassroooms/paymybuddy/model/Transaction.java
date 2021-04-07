@@ -17,18 +17,21 @@ public class Transaction {
     @ManyToOne()
     @JoinColumn(name = "emitterId", referencedColumnName = "id")
     private Account emitter;
+    //@ManyToOne()
+    //@JoinColumn(name = "iban", referencedColumnName = "iban")
+    //private Account iban;
     @ManyToOne()
-    @JoinColumn(name = "receivedId", referencedColumnName = "id")
+    @JoinColumn(name = "receiverId", referencedColumnName = "id")
     private Account receiver;
 
     public Transaction() {
     }
 
-    public Transaction(String designation, double amount, LocalDate date, Account userSender, Account userReceiver) {
+    public Transaction(String designation, double amount, LocalDate date, Account sender, Account receiver) {
         this.designation = designation;
         this.amount = amount;
         this.date = date;
-        this.emitter = userSender;
-        this.receiver = userReceiver;
+        this.emitter = sender;
+        this.receiver = receiver;
     }
 }

@@ -8,10 +8,5 @@ public class PaymybuddyApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(PaymybuddyApplication.class, args);
-
-
-	//ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-	//String path = classLoader.getResource("templates/troispoints.png").getPath();
-	//System.out.println(path);
 	}
 }

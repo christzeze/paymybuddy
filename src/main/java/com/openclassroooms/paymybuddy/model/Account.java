@@ -1,31 +1,29 @@
 package com.openclassroooms.paymybuddy.model;
 
 import lombok.Data;
+import org.hibernate.annotations.ManyToAny;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Data
-public class Account {
+public class Account implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @ManyToOne()
-    @JoinColumn(name = "userId", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_bank_account_user1"))
-    private User user;
-    @ManyToOne()
-    @JoinColumn(name = "bankId", referencedColumnName = "id")
-    private Bank bank;
     String iban;
     double sold;
 
-    public Account() {
-    }
+    @ManyToOne()
+    @JoinColumn(name = "bankId", referencedColumnName = "id")
+    private Bank bank;
 
-    public Account(User user, Bank bankId, String iban, double sold) {
-        this.user = user;
-        this.bank = bankId;
-        this.iban = iban;
-        this.sold = sold;
-    }
+    @ManyToOne()
+    @JoinColumn(name = "userId", referencedColumnName = "id")
+    private User user;
+
+
+
+
 }

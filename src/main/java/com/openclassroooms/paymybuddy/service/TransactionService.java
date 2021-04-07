@@ -4,5 +4,5 @@ import com.openclassroooms.paymybuddy.dto.TransactionDto;
 import com.openclassroooms.paymybuddy.model.Transaction;
 
 public interface TransactionService {
-    Transaction CreateTransaction(TransactionDto transactionDto);
+    Transaction CreateTransaction(Transaction transaction);
 }

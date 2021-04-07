@@ -15,7 +15,7 @@ public class Contact {
     private String iban;
     @ManyToOne()
     @JoinColumn(name = "userId", referencedColumnName = "id")
-    private User user;
+    private User aaUser;
 
     public Contact() {
     }

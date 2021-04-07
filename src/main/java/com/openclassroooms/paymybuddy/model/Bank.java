@@ -14,7 +14,7 @@ public class Bank {
     private String name;
     private String address;
     private String zip;
-    private String City;
+    private String city;
     @OneToMany
     @JoinColumn(name = "bankId")
     private List<Account> accounts;
@@ -26,6 +26,11 @@ public class Bank {
         this.name = name;
         this.address = address;
         this.zip = zip;
-        City = city;
+        this.city = city;
+    }
+
+    @Override
+    public String toString() {
+        return "Bank[id="+id+",name="+name+",address="+address+",zip="+zip+",city="+city+"]";
     }
 }

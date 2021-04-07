@@ -5,11 +5,10 @@ import lombok.Data;
 import java.time.LocalDate;
 
 @Data
-public class TransactionDto {
+public class ForeignTransactionDto {
     private String designation;
     private double amount;
     private LocalDate date;
-    private AccountDto emitter;
-    //private AccountDto iban;
-    private AccountDto receiver;
+    private AccountDto sender;
+    private ContactDto receiver;
 }

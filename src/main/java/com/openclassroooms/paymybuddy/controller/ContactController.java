@@ -37,6 +37,6 @@ public class ContactController {
     @PostMapping
     public String registerContact(@ModelAttribute("contact") ContactDto contactDto) {
         contactService.createContact(contactDto);
-        return "redirect:/transfer";
+        return "redirect:/transaction";
     }
 }
