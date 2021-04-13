@@ -1,22 +1,16 @@
 package com.openclassroooms.paymybuddy.controller;
 
-import com.openclassroooms.paymybuddy.dto.AccountDto;
-import com.openclassroooms.paymybuddy.dto.ContactDto;
 import com.openclassroooms.paymybuddy.dto.TransactionDto;
-import com.openclassroooms.paymybuddy.dto.TransferDto;
-import com.openclassroooms.paymybuddy.mapper.AccountMapper;
 import com.openclassroooms.paymybuddy.mapper.TransactionMapper;
 import com.openclassroooms.paymybuddy.model.*;
-import com.openclassroooms.paymybuddy.repository.AccountRepository;
-import com.openclassroooms.paymybuddy.repository.ContactRepository;
-import com.openclassroooms.paymybuddy.repository.TransactionRepository;
-import com.openclassroooms.paymybuddy.repository.UserRepository;
+import com.openclassroooms.paymybuddy.repository.*;
+import com.openclassroooms.paymybuddy.service.AccountService;
 import com.openclassroooms.paymybuddy.service.TransactionService;
+import com.openclassroooms.paymybuddy.service.UserService;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -43,11 +37,19 @@ public class TransactionController {
         this.transactionService = transactionService;
     }
 
-    private final TransactionMapper transactionMapper = Mappers.getMapper( TransactionMapper.class );
+    private final TransactionMapper transactionMapper = Mappers.getMapper(TransactionMapper.class);
 
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private AccountService accountService;
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private ContactRepository contactRepository;
 
     @Autowired
     private AccountRepository accountRepository;
@@ -59,8 +61,8 @@ public class TransactionController {
         }
         int page = 0; //default page number is 0 (yes it is weird)
         int size = 5; //default page size is 10
-        int pageSize=5;
-        int pageNo=1;
+        int pageSize = 5;
+        int pageNo = 0;
 
         if (request.getParameter("page") != null && !request.getParameter("page").isEmpty()) {
             pageNo = Integer.parseInt(request.getParameter("page")) - 1;
@@ -71,23 +73,25 @@ public class TransactionController {
         }
 
 
-        List<Account> accounts=accountRepository.findAll();
+        // find user for definition of emitter
+        User user=userService.findUser();
+        model.addAttribute("emitter1",user);
+
+        // List of accounts
+        List<Account> accounts = accountService.listOfAccounts(user);
         model.addAttribute("accounts", accounts);
 
-        String userMail= SecurityContextHolder.getContext().getAuthentication().getName();
-        User user=userRepository.findByEmail(userMail);
-        Account account=accountRepository.findById(user.getId());
+        // List of user accounts
+        List<Account>userAccounts=accountService.listOfUserAccounts();
+        model.addAttribute("useraccounts",userAccounts);
 
-        Page<Transaction> page1=transactionRepository.findByEmitter(account,PageRequest.of(pageNo, pageSize));
-        List < Transaction > listTransactions = page1.getContent();
+        // Pagination
+        Page<Transaction> page1=transactionService.pagination(user,pageNo,pageSize);
+        List<Transaction> listTransactions = page1.getContent();
         model.addAttribute("currentPage", pageNo);
         model.addAttribute("totalPages", page1.getTotalPages());
         model.addAttribute("totalItems", page1.getTotalElements());
         model.addAttribute("transactions", listTransactions);
-
-        //model.addAttribute("transactions", transactionRepository.findAll(PageRequest.of(page, size)));
-
-
         model.addAttribute("transaction", new TransactionDto());
         return "transaction";
 
@@ -95,8 +99,8 @@ public class TransactionController {
 
     @PostMapping
     public String registerUserAccount(@ModelAttribute("transaction") TransactionDto transactionDto) {
-        transactionService.CreateTransaction(transactionMapper.toEntity(transactionDto));
-        return "redirect:/home";
+        transactionService.createTransaction(transactionMapper.toEntity(transactionDto));
+        return "redirect:/transaction";
     }
 }
 

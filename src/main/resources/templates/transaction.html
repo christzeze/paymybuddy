@@ -41,10 +41,24 @@
       </div>
     </div>
   </div>
+
   <form class="" th:action="@{/transaction}" method="post" th:object="${transaction}">
     <div class="my-3 py-1" style="">
       <div class="container">
-        <div class="row">
+
+          <select hidden   th:field="*{emitter.id}" >
+            <option th:each="emitter : ${emitter1}"
+                    th:value="${emitter1.id}"
+                    th:text="${emitter1.email}"> </option>
+          </select>
+
+        <select class="form-control " th:field="*{emitterIban}" >
+          <option th:each="useraccount : ${useraccounts}"
+                  th:value="${useraccount.iban}"
+                  th:text="${useraccount.iban}"> </option>
+        </select>
+
+        <div class="row pt-4">
           <div class="col-md-4">
                <select class="form-control " th:field="*{receiver.id}" >
                  <option th:each="account : ${accounts}"
@@ -52,6 +66,8 @@
                          th:text="${account.iban}"> </option>
                </select>
           </div>
+
+
           <div class="col-md-4">
             <form class="">
               <div class="form-group">

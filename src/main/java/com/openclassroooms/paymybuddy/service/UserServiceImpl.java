@@ -1,9 +1,12 @@
 package com.openclassroooms.paymybuddy.service;
 
-import com.openclassroooms.paymybuddy.dto.UserRegistrationDto;
+import com.openclassroooms.paymybuddy.model.Account;
 import com.openclassroooms.paymybuddy.model.User;
+import com.openclassroooms.paymybuddy.repository.AccountRepository;
+import com.openclassroooms.paymybuddy.repository.BankRepository;
 import com.openclassroooms.paymybuddy.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -16,8 +19,10 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     @Autowired
-    private BankService bankService;
+    private BankRepository bankRepository;
 
+    @Autowired
+    private AccountRepository accountRepository;
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
@@ -28,12 +33,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User findUser() {
+        String userMail = SecurityContextHolder.getContext().getAuthentication().getName();
+        return userRepository.findByEmail(userMail);
+    }
+
+    @Override
     public User save(User user) {
-        //User user = new User(registrationDto.getFirstName(),registrationDto.getLastName(), registrationDto.getEmail(),
-                //passwordEncoder.encode(registrationDto.getPassword()),registrationDto.getBank(),registrationDto.getIban());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         User userSaved =userRepository.save(user);
-        return userSaved;
+        return userRepository.save(user);
     }
 
     @Override

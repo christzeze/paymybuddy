@@ -1,11 +1,10 @@
 package com.openclassroooms.paymybuddy.controller;
 
-import com.openclassroooms.paymybuddy.dto.TransactionDto;
+import com.openclassroooms.paymybuddy.dto.BankDto;
 import com.openclassroooms.paymybuddy.dto.UserDto;
-import com.openclassroooms.paymybuddy.dto.UserRegistrationDto;
-import com.openclassroooms.paymybuddy.mapper.TransactionMapper;
 import com.openclassroooms.paymybuddy.mapper.UserMapper;
 import com.openclassroooms.paymybuddy.model.Bank;
+import com.openclassroooms.paymybuddy.model.User;
 import com.openclassroooms.paymybuddy.repository.BankRepository;
 import com.openclassroooms.paymybuddy.service.UserService;
 import org.mapstruct.factory.Mappers;
@@ -13,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/registration")
@@ -36,9 +37,10 @@ public class UserRegistrationController {
 
     @GetMapping
     public String showRegistrationForm(Model model) {
-        Iterable<Bank> banks = bankRepository.findAll();
+        List<Bank> banks = bankRepository.findAll();
         model.addAttribute("banks", banks);
-        model.addAttribute("user", new UserDto());
+        model.addAttribute("user", new User());
+        BankDto bank= userRegistrationDto().getBank();
         return "registration";
     }
 

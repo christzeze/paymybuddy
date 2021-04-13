@@ -1,14 +1,16 @@
 package com.openclassroooms.paymybuddy.dto;
 
+import com.openclassroooms.paymybuddy.model.User;
 import lombok.Data;
 
 import java.time.LocalDate;
 
 @Data
 public class ForeignTransactionDto {
-    private String designation;
     private double amount;
     private LocalDate date;
-    private AccountDto sender;
+    private String designation;
+    private String emitterIban;
+    private UserDto sender;
     private ContactDto receiver;
 }

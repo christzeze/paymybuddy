@@ -35,22 +35,34 @@
         <div class="col-md-6 bg-light">
           <h5 class="">Send money<br></h5>
         </div>
-        <div class="col-md-6 text-right"><a class="btn btn-primary" href="contact">Add Connection</a></div>
+        <div class="col-md-6 text-right"><a class="btn btn-primary" href="foreigncontact">Add Connection</a></div>
       </div>
     </div>
   </div>
   <form class="" th:action="@{/foreigntransaction}" method="post" th:object="${foreigntransaction}">
     <div class="my-3 py-1" style="">
       <div class="container">
+        <select hidden   th:field="*{sender.id}" >
+          <option th:each="emitter : ${emitter1}"
+                  th:value="${emitter1.id}"
+                  th:text="${emitter1.email}"> </option>
+        </select>
+
+        <select class="form-control " th:field="*{emitterIban}" >
+          <option th:each="useraccount : ${useraccounts}"
+                  th:value="${useraccount.iban}"
+                  th:text="${useraccount.iban}"> </option>
+        </select>
+
         <div class="row">
-          <div class="col-md-4">
+          <div class="col-md-4 pt-3">
             <select class="form-control " th:field="*{receiver.id}" >
               <option th:each="contact : ${contacts}"
                       th:value="${contact.id}"
                       th:text="${contact.email}"> </option>
             </select>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-4 pt-3">
             <form class="">
               <div class="form-group">
                 <div class="input-group"><input type="number" class="form-control form-control-lg mr-5" id="inlineFormInputGroup" placeholder="0€" th:field="*{amount}"></div>
@@ -58,9 +70,10 @@
             </form>
           </div>
 
-          <div class="col-md-4">
+
+          <div class="col-md-4 pt-3">
             <button type="submit" class="btn btn-success btn-block my-1 ">Pay</button>
-            <!-- <a class="btn btn-success btn-block my-1" href="#">Pay<br></a> -->
+            <!-- <a class="btn btn-success btn-block my-1" hre  f="#">Pay<br></a> -->
           </div>
         </div>
         <div class="row">

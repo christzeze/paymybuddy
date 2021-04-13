@@ -4,14 +4,12 @@ package com.openclassroooms.paymybuddy.controller;
 import com.openclassroooms.paymybuddy.dto.ForeignTransactionDto;
 import com.openclassroooms.paymybuddy.dto.TransactionDto;
 import com.openclassroooms.paymybuddy.mapper.ForeignTransactionMapper;
-import com.openclassroooms.paymybuddy.mapper.TransactionMapper;
-import com.openclassroooms.paymybuddy.model.Account;
-import com.openclassroooms.paymybuddy.model.Contact;
-import com.openclassroooms.paymybuddy.model.ForeignTransaction;
-import com.openclassroooms.paymybuddy.model.User;
+import com.openclassroooms.paymybuddy.model.*;
 import com.openclassroooms.paymybuddy.repository.*;
+import com.openclassroooms.paymybuddy.service.AccountService;
+import com.openclassroooms.paymybuddy.service.ContactService;
 import com.openclassroooms.paymybuddy.service.ForeignTransactionService;
-import com.openclassroooms.paymybuddy.service.TransactionService;
+import com.openclassroooms.paymybuddy.service.UserService;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -33,12 +31,18 @@ public class ForeignTransactionController {
     private ForeignTransactionRepository foreignTransactionRepository;
 
     @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
     private AccountRepository accountRepository;
 
-    private ForeignTransactionService foreignTransactionService;
+    @Autowired
+    private ContactService contactService;
+
+    @Autowired
+    private AccountService accountService;
+
+    private final ForeignTransactionService foreignTransactionService;
+
+    @Autowired
+    private UserService userService;
 
     public ForeignTransactionController(ForeignTransactionService foreignTransactionService) {
         this.foreignTransactionService = foreignTransactionService;
@@ -55,8 +59,7 @@ public class ForeignTransactionController {
         if (bindingResult.hasErrors()) {
             //errors processing
         }
-        int page = 0; //default page number is 0 (yes it is weird)
-        int size = 10; //default page size is 10
+
         int pageSize=5;
         int pageNo=0;
 
@@ -68,23 +71,25 @@ public class ForeignTransactionController {
             pageSize = Integer.parseInt(request.getParameter("size"));
         }
 
+        // find user for definition of emitter
+        User user=userService.findUser();
+        model.addAttribute("emitter1",user);
 
-        List<Contact> contacts=contactRepository.findAll();
+        // List of contacts
+        List<Contact> contacts=contactService.ListOfContacts(user);
         model.addAttribute("contacts", contacts);
 
-        String userMail= SecurityContextHolder.getContext().getAuthentication().getName();
-        User user=userRepository.findByEmail(userMail);
-        Account account=accountRepository.findById(user.getId());
+        // List of user accounts
+        List<Account>userAccounts=accountService.listOfUserAccounts();
+        model.addAttribute("useraccounts",userAccounts);
 
-        Page<ForeignTransaction> page1=foreignTransactionRepository.findBySender(account,PageRequest.of(pageNo, pageSize));
+        // Pagination
+        Page<ForeignTransaction> page1 =foreignTransactionService.Pagination(user,pageNo,pageSize);
         List < ForeignTransaction > listForeignTransactions = page1.getContent();
         model.addAttribute("currentPage", pageNo);
         model.addAttribute("totalPages", page1.getTotalPages());
         model.addAttribute("totalItems", page1.getTotalElements());
         model.addAttribute("foreigntransactions", listForeignTransactions);
-
-        //model.addAttribute("foreigntransactions", foreignTransactionRepository.findBySender(account,PageRequest.of(page, size)));
-
         model.addAttribute("foreigntransaction", new ForeignTransactionDto());
         return "foreigntransaction";
 
@@ -93,6 +98,6 @@ public class ForeignTransactionController {
     @PostMapping
     public String registerUserAccount(@ModelAttribute("transaction") ForeignTransactionDto foreignTransactionDto) {
         foreignTransactionService.CreateTransaction(foreignTransactionMapper.toEntity(foreignTransactionDto));
-        return "redirect:/home";
+        return "redirect:/foreigntransaction";
     }
 }

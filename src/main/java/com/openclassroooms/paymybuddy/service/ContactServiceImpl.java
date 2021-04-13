@@ -9,9 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ContactServiceImpl implements ContactService{
-
     private ContactRepository contactRepository;
 
     @Autowired
@@ -23,13 +24,13 @@ public class ContactServiceImpl implements ContactService{
     }
 
     @Override
-    public Contact createContact(ContactDto contactDto) {
-        Contact contact=new Contact(contactDto.getLastName(), contactDto.getEmail(), contactDto.getIban());
-        String userMail=SecurityContextHolder.getContext().getAuthentication().getName();
-        User aaUser = userRepository.findByEmail(userMail);
-        contact.setAaUser(aaUser);
-        Contact contactSaved=contactRepository.save(contact);
-        return contactSaved;
+    public List<Contact> ListOfContacts(User user) {
+        return contactRepository.findByuserId(user.getId());
+    }
+
+    @Override
+    public Contact createContact(Contact contact) {
+        return contactRepository.save(contact);
     }
 
     @Override

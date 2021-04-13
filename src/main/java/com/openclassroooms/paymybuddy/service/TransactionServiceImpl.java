@@ -1,7 +1,5 @@
 package com.openclassroooms.paymybuddy.service;
 
-import com.openclassroooms.paymybuddy.dto.TransactionDto;
-import com.openclassroooms.paymybuddy.mapper.AccountMapper;
 import com.openclassroooms.paymybuddy.model.Account;
 import com.openclassroooms.paymybuddy.model.Transaction;
 import com.openclassroooms.paymybuddy.model.User;
@@ -9,10 +7,13 @@ import com.openclassroooms.paymybuddy.repository.AccountRepository;
 import com.openclassroooms.paymybuddy.repository.TransactionRepository;
 import com.openclassroooms.paymybuddy.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TransactionServiceImpl implements TransactionService {
@@ -31,21 +32,32 @@ public class TransactionServiceImpl implements TransactionService {
     private UserRepository userRepository;
 
 
-    @Override
-    public Transaction CreateTransaction(Transaction transaction) {
-        String userMail= SecurityContextHolder.getContext().getAuthentication().getName();
-        User user=userRepository.findByEmail(userMail);
-        Account userSender = accountRepository.findById(user.getId());
-        transaction.setEmitter(userSender);
-        //Account iban = accountRepository.findById(transaction.getIban().getId());
-        Account receiver=accountRepository.findById(transaction.getReceiver().getId());
-        //transaction.setIban(iban);
-        transaction.setReceiver(receiver);
-        LocalDate date= LocalDate.now();
-        transaction.setDate(date);
-        return transactionRepository.save(transaction);
 
+    @Override
+    public Transaction createTransaction(Transaction transaction) {
+        Account account = accountRepository.findByIban(transaction.getEmitterIban());
+        Optional<Account> receiver = accountRepository.findById(transaction.getReceiver().getId());
+        if (receiver.get().getIban() == account.getIban()) {
+            account.setSold(account.getSold() + transaction.getAmount());
+            accountRepository.save(account);
+            transaction.setDate(LocalDate.now());
+            return transactionRepository.save(transaction);
+        } else {
+            if (account.getSold() >= transaction.getAmount()) {
+                account.setSold(account.getSold() - transaction.getAmount());
+                accountRepository.save(account);
+                transaction.setDate(LocalDate.now());
+                return transactionRepository.save(transaction);
+            } else {
+                return null;
+            }
+        }
     }
 
+
+    @Override
+    public Page<Transaction> pagination(User user, int pageNo, int pageSize) {
+        return transactionRepository.findByEmitter(user, PageRequest.of(pageNo,pageSize));
+    }
 
 }

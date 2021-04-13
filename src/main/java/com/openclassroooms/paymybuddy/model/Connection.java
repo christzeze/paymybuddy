@@ -4,22 +4,16 @@ import lombok.Data;
 
 import javax.persistence.*;
 
-@Data
 @Entity
-public class Contact {
+@Data
+public class Connection {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String lastName;
     private String email;
-    private String iban;
-    @ManyToOne()
-    @JoinColumn(name = "userId", referencedColumnName = "id")
-    private User user;
-    @ManyToOne()
-    @JoinColumn(name = "bankId", referencedColumnName = "id")
-    private Bank bank;
 
-    public Contact() {
-    }
+    @ManyToOne()
+    @JoinColumn(name = "emitterId", referencedColumnName = "id")
+    private User user;
 }

@@ -9,4 +9,5 @@ public class AccountDto {
     private double sold;
     private BankDto bank;
     private UserDto user;
+    private boolean userAccount;
 }

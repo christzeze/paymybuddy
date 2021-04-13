@@ -14,10 +14,10 @@ public class Bank {
     private String name;
     private String address;
     private String zip;
-    private String city;
-    @OneToMany
-    @JoinColumn(name = "bankId")
-    private List<Account> accounts;
+    private String City;
+
+    //@OneToMany(cascade = {CascadeType.ALL})
+    //List<Account> accounts;
 
     public Bank() {
     }
@@ -26,11 +26,6 @@ public class Bank {
         this.name = name;
         this.address = address;
         this.zip = zip;
-        this.city = city;
-    }
-
-    @Override
-    public String toString() {
-        return "Bank[id="+id+",name="+name+",address="+address+",zip="+zip+",city="+city+"]";
+        City = city;
     }
 }

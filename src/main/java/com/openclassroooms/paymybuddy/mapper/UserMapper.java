@@ -8,6 +8,6 @@ import org.mapstruct.Mapping;
 @Mapper
 public interface UserMapper extends AbstractMapper<User, UserDto> {
     @Override
-    @Mapping(target = "accounts", ignore = true)
+    //@Mapping(target = "accounts", ignore = true)
     User toEntity(UserDto dto);
 }

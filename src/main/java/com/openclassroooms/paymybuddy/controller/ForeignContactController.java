@@ -1,7 +1,6 @@
 package com.openclassroooms.paymybuddy.controller;
 
 import com.openclassroooms.paymybuddy.dto.AccountDto;
-import com.openclassroooms.paymybuddy.dto.BankDto;
 import com.openclassroooms.paymybuddy.dto.ContactDto;
 import com.openclassroooms.paymybuddy.mapper.AccountMapper;
 import com.openclassroooms.paymybuddy.mapper.ContactMapper;
@@ -25,36 +24,32 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 
 @Controller
-@RequestMapping("/contact")
-
-public class ContactController {
-
-    private ContactService contactService;
-
-    @Autowired
-    private AccountService accountService;
-
-    @Autowired
-    private UserService userService;
-
-    @Autowired
-    private BankService bankService;
-
+@RequestMapping("/foreigncontact")
+public class ForeignContactController {
+    public ContactService contactService;
     private final ContactMapper contactMapper = Mappers.getMapper( ContactMapper.class );
-    private final AccountMapper accountMapper = Mappers.getMapper( AccountMapper.class );
 
-    public ContactController(ContactService contactService) {
+    public ForeignContactController(ContactService contactService) {
         super();
         this.contactService = contactService;
     }
 
-    @ModelAttribute("contact")
-    public AccountDto accountDto() {
-        return new AccountDto();
-    }
+    @Autowired
+    private BankService bankService;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private UserService userService;
+
+
+    @ModelAttribute("foreigncontact")
+    public ContactDto contactDto() {return new ContactDto();}
 
     @GetMapping
     public String showContactForm(Model model) {
+
         List<Bank> banks = bankService.findAll();
         model.addAttribute("banks", banks);
         model.addAttribute("bank",new Bank());
@@ -63,13 +58,12 @@ public class ContactController {
         User user=userService.findUser();
         model.addAttribute("emitter",user);
 
-        return "contact";
+        return "foreigncontact";
     }
 
     @PostMapping
-    public String registerContact(@ModelAttribute("contact") AccountDto accountDto) {
-        accountDto.setUserAccount(false);
-        accountService.createAccount(accountMapper.toEntity(accountDto));
-        return "redirect:/transaction";
+    public String registerContact(@ModelAttribute("contact") ContactDto contactDto) {
+        contactService.createContact(contactMapper.toEntity(contactDto));
+        return "redirect:/foreigntransaction";
     }
 }
