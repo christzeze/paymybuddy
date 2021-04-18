@@ -25,4 +25,14 @@ public class ForeignTransaction {
 
     public ForeignTransaction() {
     }
+
+    public ForeignTransaction(int id, double amount, LocalDate date, String designation, String emitterIban, User sender, Contact receiver) {
+        this.id = id;
+        this.amount = amount;
+        this.date = date;
+        this.designation = designation;
+        this.emitterIban = emitterIban;
+        this.sender = sender;
+        this.receiver = receiver;
+    }
 }

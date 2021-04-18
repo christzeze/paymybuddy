@@ -1,6 +1,5 @@
 package com.openclassroooms.paymybuddy.dto;
 
-import com.openclassroooms.paymybuddy.model.User;
 import lombok.Data;
 
 import java.time.LocalDate;

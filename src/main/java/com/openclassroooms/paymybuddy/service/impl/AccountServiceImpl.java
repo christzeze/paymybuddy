@@ -1,33 +1,31 @@
-package com.openclassroooms.paymybuddy.service;
+package com.openclassroooms.paymybuddy.service.impl;
 
-import com.openclassroooms.paymybuddy.mapper.AccountMapper;
 import com.openclassroooms.paymybuddy.model.Account;
-
 import com.openclassroooms.paymybuddy.model.User;
 import com.openclassroooms.paymybuddy.repository.AccountRepository;
-import com.openclassroooms.paymybuddy.repository.UserRepository;
+import com.openclassroooms.paymybuddy.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class AccountServiceImpl implements AccountService {
-    public final AccountRepository accountRepository;
 
-    public AccountServiceImpl(AccountRepository accountRepository) {
-        super();
-        this.accountRepository = accountRepository;
-    }
+    @Autowired
+    private AccountRepository accountRepository;
 
     @Override
     public Account createAccount(Account account) {
-        Account accountIban=accountRepository.findByIban(account.getIban());
-        if (accountIban==null) {
+        Account accountIban = accountRepository.findByIban(account.getIban());
+        if (accountIban == null) {
             return accountRepository.save(account);
         } else {
-            return null;
+            accountIban.setBank(account.getBank());
+            return accountRepository.save(accountIban);
         }
     }
 
@@ -41,3 +39,5 @@ public class AccountServiceImpl implements AccountService {
         return accountRepository.findByUserAccountIsTrue();
     }
 }
+
+

@@ -3,11 +3,10 @@ package com.openclassroooms.paymybuddy.model;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Entity
 @Data
-public class Account  {
+public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -19,13 +18,20 @@ public class Account  {
     private Bank bank;
     private String iban;
     private double sold;
-    @Column(columnDefinition="tinyint(1) default 0")
+    @Column(columnDefinition = "tinyint(1) default 0")
     private boolean userAccount;
 
+    public Account(int id, User user, Bank bank, String iban, double sold, boolean userAccount) {
+        this.id = id;
+        this.user = user;
+        this.bank = bank;
+        this.iban = iban;
+        this.sold = sold;
+        this.userAccount = userAccount;
+    }
 
     public Account() {
     }
-
 
 
 }

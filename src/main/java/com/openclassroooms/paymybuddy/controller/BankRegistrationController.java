@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class BankRegistrationController {
 
     private final BankService bankService;
-    private final BankMapper bankMapper = Mappers.getMapper( BankMapper.class );
+    private final BankMapper bankMapper = Mappers.getMapper(BankMapper.class);
 
 
     public BankRegistrationController(BankService bankService) {

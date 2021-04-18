@@ -1,4 +1,4 @@
-package com.openclassroooms.paymybuddy.service;
+package com.openclassroooms.paymybuddy.service.impl;
 
 import com.openclassroooms.paymybuddy.model.Account;
 import com.openclassroooms.paymybuddy.model.Transaction;
@@ -6,31 +6,28 @@ import com.openclassroooms.paymybuddy.model.User;
 import com.openclassroooms.paymybuddy.repository.AccountRepository;
 import com.openclassroooms.paymybuddy.repository.TransactionRepository;
 import com.openclassroooms.paymybuddy.repository.UserRepository;
+import com.openclassroooms.paymybuddy.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class TransactionServiceImpl implements TransactionService {
 
+    @Autowired
     private TransactionRepository transactionRepository;
-
-    public TransactionServiceImpl(TransactionRepository transactionRepository) {
-        super();
-        this.transactionRepository = transactionRepository;
-    }
 
     @Autowired
     private AccountRepository accountRepository;
 
     @Autowired
     private UserRepository userRepository;
-
 
 
     @Override
@@ -57,7 +54,7 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     public Page<Transaction> pagination(User user, int pageNo, int pageSize) {
-        return transactionRepository.findByEmitter(user, PageRequest.of(pageNo,pageSize));
+        return transactionRepository.findByEmitter(user, PageRequest.of(pageNo, pageSize));
     }
 
 }

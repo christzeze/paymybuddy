@@ -22,4 +22,13 @@ public class Contact {
 
     public Contact() {
     }
+
+    public Contact(int id, String lastName, String email, String iban, User user, Bank bank) {
+        this.id = id;
+        this.lastName = lastName;
+        this.email = email;
+        this.iban = iban;
+        this.user = user;
+        this.bank = bank;
+    }
 }

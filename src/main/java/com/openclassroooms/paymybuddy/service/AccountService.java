@@ -7,6 +7,8 @@ import java.util.List;
 
 public interface AccountService {
     Account createAccount(Account account);
+
     List<Account> listOfAccounts(User user);
+
     List<Account> listOfUserAccounts();
 }

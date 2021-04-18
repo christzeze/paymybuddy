@@ -1,10 +1,10 @@
-package com.openclassroooms.paymybuddy.service;
+package com.openclassroooms.paymybuddy.service.impl;
 
-import com.openclassroooms.paymybuddy.model.Account;
 import com.openclassroooms.paymybuddy.model.User;
 import com.openclassroooms.paymybuddy.repository.AccountRepository;
 import com.openclassroooms.paymybuddy.repository.BankRepository;
 import com.openclassroooms.paymybuddy.repository.UserRepository;
+import com.openclassroooms.paymybuddy.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,10 +12,13 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 
 @Service
+@Transactional
 public class UserServiceImpl implements UserService {
+    @Autowired
     private UserRepository userRepository;
 
     @Autowired
@@ -27,11 +30,6 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
-    public UserServiceImpl(UserRepository userRepository) {
-        super();
-        this.userRepository = userRepository;
-    }
-
     @Override
     public User findUser() {
         String userMail = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -41,7 +39,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User save(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        User userSaved =userRepository.save(user);
+        User userSaved = userRepository.save(user);
         return userRepository.save(user);
     }
 

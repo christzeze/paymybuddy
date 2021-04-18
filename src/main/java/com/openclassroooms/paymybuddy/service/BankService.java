@@ -6,7 +6,9 @@ import java.util.List;
 
 public interface BankService {
     Bank createAccount(Bank bank);
-    void updateAccount(Bank bank);
+
+
+
     List<Bank> findAll();
 
 }

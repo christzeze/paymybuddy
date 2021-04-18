@@ -1,7 +1,6 @@
 package com.openclassroooms.paymybuddy.configuration;
 
 
-
 import com.openclassroooms.paymybuddy.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,8 +30,8 @@ public class LoggingAccessDeniedHandler implements AccessDeniedHandler {
                        HttpServletResponse response,
                        AccessDeniedException ex) throws IOException, ServletException {
 
-        UserDetails userDetails= userService.loadUserByUsername("name");
-        Authentication authentication= new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities()) ;
+        UserDetails userDetails = userService.loadUserByUsername("name");
+        Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
         if (auth != null) {
