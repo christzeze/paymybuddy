@@ -25,7 +25,7 @@ public class ForeignTransactionServiceImpl implements ForeignTransactionService 
     private AccountRepository accountRepository;
 
     @Override
-    public ForeignTransaction CreateTransaction(ForeignTransaction foreignTransaction) throws Exception {
+    public ForeignTransaction createTransaction(ForeignTransaction foreignTransaction) throws Exception {
         Account account = accountRepository.findByIban(foreignTransaction.getEmitterIban());
         if (account.getSold() >= foreignTransaction.getAmount()) {
             account.setSold(account.getSold() - foreignTransaction.getAmount());
@@ -40,7 +40,7 @@ public class ForeignTransactionServiceImpl implements ForeignTransactionService 
 
 
     @Override
-    public Page<ForeignTransaction> Pagination(User user, int pageNo, int pageSize) {
+    public Page<ForeignTransaction> pagination(User user, int pageNo, int pageSize) {
         return foreignTransactionRepository.findBySender(user, PageRequest.of(pageNo, pageSize));
     }
 }

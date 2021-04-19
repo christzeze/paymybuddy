@@ -75,7 +75,7 @@ public class TransactionController {
     }
 
     @PostMapping
-    public String registerUserAccount(@ModelAttribute("transaction") TransactionDto transactionDto) {
+    public String registerUserAccount(@ModelAttribute("transaction") TransactionDto transactionDto) throws Exception {
         transactionService.createTransaction(transactionMapper.toEntity(transactionDto));
         return "redirect:/transaction";
     }

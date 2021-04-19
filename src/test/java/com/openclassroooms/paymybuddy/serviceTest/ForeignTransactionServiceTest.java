@@ -2,28 +2,20 @@ package com.openclassroooms.paymybuddy.serviceTest;
 
 import com.openclassroooms.paymybuddy.model.*;
 import com.openclassroooms.paymybuddy.repository.AccountRepository;
-import com.openclassroooms.paymybuddy.repository.ContactRepository;
 import com.openclassroooms.paymybuddy.repository.ForeignTransactionRepository;
-import com.openclassroooms.paymybuddy.service.impl.ContactServiceImpl;
 import com.openclassroooms.paymybuddy.service.impl.ForeignTransactionServiceImpl;
-import io.restassured.RestAssured;
-import org.apache.coyote.Response;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-
-import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import java.time.LocalDate;
-import java.util.*;
-import java.util.function.Function;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -57,8 +49,8 @@ public class ForeignTransactionServiceTest {
         ForeignTransaction foreignTransaction=new ForeignTransaction(1,100, LocalDate.of(2021, 4, 16),"virement1","bb123456789",user,contact);
 
         try {
-            when(foreignTransactionService.CreateTransaction(new ForeignTransaction())).thenThrow(new Exception("Not enough money on account"));
-            foreignTransactionService.CreateTransaction(foreignTransaction);
+            when(foreignTransactionService.createTransaction(new ForeignTransaction())).thenThrow(new Exception("Not enough money on account"));
+            foreignTransactionService.createTransaction(foreignTransaction);
         } catch (Exception e) {
 
             assertThat(e instanceof Exception).isEqualTo(true);
@@ -78,7 +70,7 @@ public class ForeignTransactionServiceTest {
 
 
         ForeignTransaction foreignTransaction=new ForeignTransaction();
-        foreignTransaction.setDate(LocalDate.of(2021, 4, 16));
+        foreignTransaction.setDate(LocalDate.now());
         foreignTransaction.setAmount(100);
         foreignTransaction.setDesignation("Transaction 1");
         foreignTransaction.setEmitterIban("bb123456789");
@@ -90,12 +82,12 @@ public class ForeignTransactionServiceTest {
         when(foreignTransactionRepository.save(foreignTransaction)).thenReturn(foreignTransaction);
 
         //when  
-        ForeignTransaction createdForeignTransaction = foreignTransactionService.CreateTransaction(foreignTransaction);
+        ForeignTransaction createdForeignTransaction = foreignTransactionService.createTransaction(foreignTransaction);
 
 
         //then
         assertThat((account.getSold())).isEqualTo(150);
-        assertThat(createdForeignTransaction.getDate()).isEqualTo(LocalDate.of(2021, 4, 16));
+        assertThat(createdForeignTransaction.getDate()).isEqualTo(LocalDate.now());
         assertThat(createdForeignTransaction.getAmount()).isEqualTo(100);
         assertThat(createdForeignTransaction.getDesignation()).isEqualTo("Transaction 1");
         assertThat(createdForeignTransaction.getEmitterIban()).isEqualTo("bb123456789");
@@ -119,7 +111,7 @@ public class ForeignTransactionServiceTest {
         //Page<ForeignTransaction> foreignTransactionsPage =foreignTransactionRepository.findBySender(user, pageable);
         when(foreignTransactionRepository.findBySender(user, PageRequest.of(pageNo, pageSize))).thenReturn((foreignTransactionPage));
 
-        Page<ForeignTransaction> foreignTransactionsCreatedPage=foreignTransactionService.Pagination(user, pageNo, pageSize);
+        Page<ForeignTransaction> foreignTransactionsCreatedPage=foreignTransactionService.pagination(user, pageNo, pageSize);
 
         //assertThat(foreignTransactionsCreatedPage.getTotalPages()).isEqualTo(0);
         //System.out.println(foreignTransactionsCreatedPage.getTotalElements());

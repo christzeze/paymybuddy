@@ -73,7 +73,7 @@ public class ForeignTransactionController {
         model.addAttribute("useraccounts", userAccounts);
 
         // Pagination
-        Page<ForeignTransaction> page1 = foreignTransactionService.Pagination(user, pageNo, pageSize);
+        Page<ForeignTransaction> page1 = foreignTransactionService.pagination(user, pageNo, pageSize);
         List<ForeignTransaction> listForeignTransactions = page1.getContent();
         model.addAttribute("currentPage", pageNo);
         model.addAttribute("totalPages", page1.getTotalPages());
@@ -86,7 +86,7 @@ public class ForeignTransactionController {
 
     @PostMapping
     public String registerUserAccount(@ModelAttribute("transaction") ForeignTransactionDto foreignTransactionDto) throws Exception {
-        foreignTransactionService.CreateTransaction(foreignTransactionMapper.toEntity(foreignTransactionDto));
+        foreignTransactionService.createTransaction(foreignTransactionMapper.toEntity(foreignTransactionDto));
         return "redirect:/foreigntransaction";
     }
 }

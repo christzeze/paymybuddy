@@ -10,4 +10,14 @@ public class BankDto {
     private String zip;
     private String City;
 
+    public BankDto(int id, String name, String address, String zip, String city) {
+        this.id = id;
+        this.name = name;
+        this.address = address;
+        this.zip = zip;
+        City = city;
+    }
+
+    public BankDto() {
+    }
 }

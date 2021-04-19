@@ -26,10 +26,12 @@ public class Transaction {
     public Transaction() {
     }
 
-    public Transaction(String designation, double amount, LocalDate date, User emitter, Account receiver) {
+    public Transaction(int id, String designation, double amount, LocalDate date, String emitterIban, User emitter, Account receiver) {
+        this.id = id;
         this.designation = designation;
         this.amount = amount;
         this.date = date;
+        this.emitterIban = emitterIban;
         this.emitter = emitter;
         this.receiver = receiver;
     }

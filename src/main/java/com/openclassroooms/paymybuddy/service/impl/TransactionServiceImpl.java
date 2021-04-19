@@ -31,22 +31,24 @@ public class TransactionServiceImpl implements TransactionService {
 
 
     @Override
-    public Transaction createTransaction(Transaction transaction) {
+    public Transaction createTransaction(Transaction transaction) throws Exception {
         Account account = accountRepository.findByIban(transaction.getEmitterIban());
         Optional<Account> receiver = accountRepository.findById(transaction.getReceiver().getId());
         if (receiver.get().getIban() == account.getIban()) {
+            // if receiver=sender then update sold
             account.setSold(account.getSold() + transaction.getAmount());
             accountRepository.save(account);
             transaction.setDate(LocalDate.now());
             return transactionRepository.save(transaction);
         } else {
+            // check if the sold is sufficient
             if (account.getSold() >= transaction.getAmount()) {
                 account.setSold(account.getSold() - transaction.getAmount());
                 accountRepository.save(account);
                 transaction.setDate(LocalDate.now());
                 return transactionRepository.save(transaction);
             } else {
-                return null;
+                throw new Exception("Not enough money on account");
             }
         }
     }

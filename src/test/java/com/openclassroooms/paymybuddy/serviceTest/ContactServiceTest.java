@@ -82,8 +82,6 @@ public class ContactServiceTest {
         contact.setUser(user);
         contact.setIban("bb123456789");
         contact.setBank(bank);
-
-        when(contactRepository.findByuserId(contact.getUser().getId())).thenReturn(null);
         when(contactRepository.save(contact)).thenReturn(contact);
 
         //when

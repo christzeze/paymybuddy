@@ -7,7 +7,7 @@ import org.springframework.data.domain.Page;
 import java.util.List;
 
 public interface ForeignTransactionService {
-    ForeignTransaction CreateTransaction(ForeignTransaction foreignTransaction) throws Exception;
+    ForeignTransaction createTransaction(ForeignTransaction foreignTransaction) throws Exception;
 
-    Page<ForeignTransaction> Pagination(User user, int pageNo, int pageSize);
+    Page<ForeignTransaction> pagination(User user, int pageNo, int pageSize);
 }
