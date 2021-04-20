@@ -38,7 +38,7 @@ public class AccountMapperTest {
     }
 
     @Test
-    public void shouldMapBankToEntity() {
+    public void shouldMapAccountToEntity() {
         //given
         UserDto userDto = new UserDto(1,"john", "doe", "johndoe@gmail.com", "123456");
         BankDto bankDto = new BankDto(1,"Crédit agricole melun nord", "123 albert Street", "77000", "Melun");

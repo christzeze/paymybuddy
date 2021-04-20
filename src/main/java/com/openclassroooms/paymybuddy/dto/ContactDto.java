@@ -10,6 +10,20 @@ public class ContactDto {
     private String iban;
     private UserDto user;
     private BankDto bank;
+
+    public ContactDto(int id, String lastName, String email, String iban, UserDto user, BankDto bank) {
+        this.id = id;
+        this.lastName = lastName;
+        this.email = email;
+        this.iban = iban;
+        this.user = user;
+        this.bank = bank;
+    }
+
+    public ContactDto() {
+    }
 }
+
+
 
 
