@@ -4,13 +4,13 @@ Pay my Buddy est une appli qui permettrait aux clients de transférer de l'argen
 
 # Diagramme de classe #
 
-![P5_01_Diagramme_de_classe](C:\Users\personne\Desktop\openclassrooms\Projet_5_2\P5_01_Diagramme_de_classe.png)
+![P5_01_Diagramme_de_classe](P5_01_Diagramme_de_classe.png)
 
 
 
 # Modèle physique de données
 
-![P5_03_Modele_physique_donnees](C:\Users\personne\Desktop\openclassrooms\Projet_5_2\P5_03_Modele_physique_donnees.png)
+![P5_03_Modele_physique_donnees](P5_03_Modele_physique_donnees.png)
 
 ## Getting Started
 
