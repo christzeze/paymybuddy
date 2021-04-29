@@ -7,6 +7,7 @@ import java.time.LocalDate;
 
 @Data
 @Entity
+
 public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,21 +15,24 @@ public class Transaction {
     private String designation;
     private double amount;
     private LocalDate date;
+    private String emitterIban;
     @ManyToOne()
-    @JoinColumn(name = "emitterId", referencedColumnName = "id")
-    private Account emitter;
+    @JoinColumn(name = "emitter", referencedColumnName = "id")
+    private User emitter;
     @ManyToOne()
-    @JoinColumn(name = "receivedId", referencedColumnName = "id")
+    @JoinColumn(name = "received", referencedColumnName = "id")
     private Account receiver;
 
     public Transaction() {
     }
 
-    public Transaction(String designation, double amount, LocalDate date, Account userSender, Account userReceiver) {
+    public Transaction(int id, String designation, double amount, LocalDate date, String emitterIban, User emitter, Account receiver) {
+        this.id = id;
         this.designation = designation;
         this.amount = amount;
         this.date = date;
-        this.emitter = userSender;
-        this.receiver = userReceiver;
+        this.emitterIban = emitterIban;
+        this.emitter = emitter;
+        this.receiver = receiver;
     }
 }

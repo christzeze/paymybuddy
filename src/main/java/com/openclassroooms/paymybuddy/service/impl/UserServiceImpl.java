@@ -1,40 +1,45 @@
-package com.openclassroooms.paymybuddy.service;
+package com.openclassroooms.paymybuddy.service.impl;
 
-import com.openclassroooms.paymybuddy.dto.UserRegistrationDto;
-import com.openclassroooms.paymybuddy.model.Bank;
 import com.openclassroooms.paymybuddy.model.User;
+import com.openclassroooms.paymybuddy.repository.AccountRepository;
 import com.openclassroooms.paymybuddy.repository.BankRepository;
 import com.openclassroooms.paymybuddy.repository.UserRepository;
+import com.openclassroooms.paymybuddy.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 
 @Service
+@Transactional
 public class UserServiceImpl implements UserService {
+    @Autowired
     private UserRepository userRepository;
 
     @Autowired
-    private BankService bankService;
+    private BankRepository bankRepository;
 
+    @Autowired
+    private AccountRepository accountRepository;
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
-    public UserServiceImpl(UserRepository userRepository) {
-        super();
-        this.userRepository = userRepository;
+    @Override
+    public User findUser() {
+        String userMail = SecurityContextHolder.getContext().getAuthentication().getName();
+        return userRepository.findByEmail(userMail);
     }
 
     @Override
-    public User save(UserRegistrationDto registrationDto) {
-        User user = new User(registrationDto.getFirstName(),registrationDto.getLastName(), registrationDto.getEmail(),
-                passwordEncoder.encode(registrationDto.getPassword()));
-        User userSaved=userRepository.save(user);
-        return userSaved ;
+    public User save(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        return userRepository.save(user);
     }
 
     @Override

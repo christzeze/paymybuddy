@@ -1,14 +1,14 @@
 package com.openclassroooms.paymybuddy.model;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 
-@Data
+@Getter
+@Setter
 @Entity
 public class User {
     @Id
@@ -20,18 +20,24 @@ public class User {
     private String email;
     private String password;
 
+    @OneToMany()
+    List<Account> accounts;
+
     public User() {
     }
 
-    public User(String firstName, String lastName, String email, String password) {
+    public User(int id, String firstName, String lastName, String email, String password) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
     }
 
+
     public User(String email, String password) {
         this.email = email;
         this.password = password;
     }
+
 }

@@ -2,7 +2,10 @@ package com.openclassroooms.paymybuddy.model;
 
 import lombok.Data;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Data
 @Entity
@@ -14,6 +17,9 @@ public class Bank {
     private String address;
     private String zip;
     private String City;
+
+    //@OneToMany(cascade = {CascadeType.ALL})
+    //List<Account> accounts;
 
     public Bank() {
     }
