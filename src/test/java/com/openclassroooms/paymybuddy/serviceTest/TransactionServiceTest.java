@@ -38,10 +38,10 @@ public class TransactionServiceTest {
     @Test
     public void shouldThrowExceptionWhenNotEnoughMoneyOnAccount() throws Exception {
         //given
-        User user = new User(1,"john", "doe", "johndoe@gmail.com", "123456");
+        User user = new User(1, "john", "doe", "johndoe@gmail.com", "123456");
         Bank bank = new Bank("Crédit agricole melun nord", "123 albert Street", "77000", "Melun");
         Account account = new Account(3, user, bank, "bb123456789", 250, true);
-        Transaction transaction=new Transaction(1,"virement1",100, LocalDate.of(2021, 4, 16),"bb123456789",user,account);
+        Transaction transaction = new Transaction(1, "virement1", 100, LocalDate.of(2021, 4, 16), "bb123456789", user, account);
 
         try {
             when(transactionService.createTransaction(new Transaction())).thenThrow(new Exception("Not enough money on account"));
@@ -57,12 +57,12 @@ public class TransactionServiceTest {
 
         //given
 
-        User user = new User(1,"john", "doe", "johndoe@gmail.com", "123456");
+        User user = new User(1, "john", "doe", "johndoe@gmail.com", "123456");
         Bank bank = new Bank("Crédit agricole melun nord", "123 albert Street", "77000", "Melun");
         Account account = new Account(3, user, bank, "bb123456789", 250, true);
 
 
-        Transaction transaction=new Transaction();
+        Transaction transaction = new Transaction();
         transaction.setDate(LocalDate.now());
         transaction.setAmount(100);
         transaction.setDesignation("Transaction 1");
@@ -94,14 +94,14 @@ public class TransactionServiceTest {
 
         //given
 
-        User userEmitter = new User(1,"john", "doe", "johndoe@gmail.com", "123456");
-        User userReceiver = new User(2,"jacques", "martin", "jacquesmartin@gmail.com", "123456");
+        User userEmitter = new User(1, "john", "doe", "johndoe@gmail.com", "123456");
+        User userReceiver = new User(2, "jacques", "martin", "jacquesmartin@gmail.com", "123456");
         Bank bank = new Bank("Crédit agricole melun nord", "123 albert Street", "77000", "Melun");
         Account account = new Account(3, userEmitter, bank, "bb123456789", 250, true);
         Account account2 = new Account(4, userReceiver, bank, "zz123456789", 100, true);
 
 
-        Transaction transaction=new Transaction();
+        Transaction transaction = new Transaction();
         transaction.setDate(LocalDate.now());
         transaction.setAmount(100);
         transaction.setDesignation("Transaction 1");

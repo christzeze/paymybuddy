@@ -27,11 +27,10 @@ public class ContactServiceImpl implements ContactService {
 
     @Override
     public Contact createContact(Contact contact) throws Exception {
-        Contact contactMail =contactRepository.findByEmail(contact.getEmail());
-        if (contactMail==null) {
+        Contact contactMail = contactRepository.findByEmail(contact.getEmail());
+        if (contactMail == null) {
             return contactRepository.save(contact);
-        }
-        else {
+        } else {
             throw new Exception("This email exist in database");
         }
     }

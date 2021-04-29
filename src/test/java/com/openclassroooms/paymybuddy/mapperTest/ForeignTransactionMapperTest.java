@@ -4,9 +4,11 @@ import com.openclassroooms.paymybuddy.dto.BankDto;
 import com.openclassroooms.paymybuddy.dto.ContactDto;
 import com.openclassroooms.paymybuddy.dto.ForeignTransactionDto;
 import com.openclassroooms.paymybuddy.dto.UserDto;
-import com.openclassroooms.paymybuddy.mapper.ContactMapper;
 import com.openclassroooms.paymybuddy.mapper.ForeignTransactionMapper;
-import com.openclassroooms.paymybuddy.model.*;
+import com.openclassroooms.paymybuddy.model.Bank;
+import com.openclassroooms.paymybuddy.model.Contact;
+import com.openclassroooms.paymybuddy.model.ForeignTransaction;
+import com.openclassroooms.paymybuddy.model.User;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 
@@ -20,10 +22,10 @@ public class ForeignTransactionMapperTest {
     @Test
     public void shouldMapForeignTransactionToDto() {
         //given
-        User user = new User(2,"jacques", "martin", "jacquesmartin@gmail.com", "123456");
+        User user = new User(2, "jacques", "martin", "jacquesmartin@gmail.com", "123456");
         Bank bank = new Bank("Crédit agricole melun nord", "123 albert Street", "77000", "Melun");
         Contact contact = new Contact(1, "doe", "johndoe@gmail.com", "bb123456789", user, bank);
-        ForeignTransaction foreignTransaction=new ForeignTransaction(1,100, LocalDate.now(),"transaction 1","aa123456789",user,contact);
+        ForeignTransaction foreignTransaction = new ForeignTransaction(1, 100, LocalDate.now(), "transaction 1", "aa123456789", user, contact);
 
         //when
         ForeignTransactionDto foreignTransactionDto = foreignTransactionMapper.toDTO(foreignTransaction);
@@ -41,12 +43,12 @@ public class ForeignTransactionMapperTest {
     @Test
     public void shouldMapForeignTransactionToEntity() {
         //given
-        UserDto userDto = new UserDto(2,"jacques", "martin", "jacquesmartin@gmail.com", "123456");
-        BankDto bankDto = new BankDto(1,"Crédit agricole melun nord", "123 albert Street", "77000", "Melun");
+        UserDto userDto = new UserDto(2, "jacques", "martin", "jacquesmartin@gmail.com", "123456");
+        BankDto bankDto = new BankDto(1, "Crédit agricole melun nord", "123 albert Street", "77000", "Melun");
         ContactDto contactDto = new ContactDto(1, "doe", "johndoe@gmail.com", "bb123456789", userDto, bankDto);
-        ForeignTransactionDto foreignTransactionDto=new ForeignTransactionDto(100, LocalDate.now(),"transaction 1","aa123456789",userDto,contactDto);
+        ForeignTransactionDto foreignTransactionDto = new ForeignTransactionDto(100, LocalDate.now(), "transaction 1", "aa123456789", userDto, contactDto);
         //when
-        ForeignTransaction foreignTransaction=foreignTransactionMapper.toEntity(foreignTransactionDto);
+        ForeignTransaction foreignTransaction = foreignTransactionMapper.toEntity(foreignTransactionDto);
 
         //then
         assertThat(foreignTransaction).isNotNull();

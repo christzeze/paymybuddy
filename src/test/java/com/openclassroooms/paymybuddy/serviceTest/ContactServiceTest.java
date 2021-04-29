@@ -1,13 +1,10 @@
 package com.openclassroooms.paymybuddy.serviceTest;
 
 
-import com.openclassroooms.paymybuddy.model.Account;
 import com.openclassroooms.paymybuddy.model.Bank;
 import com.openclassroooms.paymybuddy.model.Contact;
 import com.openclassroooms.paymybuddy.model.User;
-import com.openclassroooms.paymybuddy.repository.AccountRepository;
 import com.openclassroooms.paymybuddy.repository.ContactRepository;
-import com.openclassroooms.paymybuddy.service.impl.AccountServiceImpl;
 import com.openclassroooms.paymybuddy.service.impl.ContactServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,7 +14,6 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -39,7 +35,7 @@ public class ContactServiceTest {
     @Test()
     public void shouldThrowExceptionWhenUserIsInDatabase() throws Exception {
         //given
-        User user = new User(1,"john", "doe", "johndoe@gmail.com", "123456");
+        User user = new User(1, "john", "doe", "johndoe@gmail.com", "123456");
         Bank bank = new Bank("Crédit agricole melun nord", "123 albert Street", "77000", "Melun");
         Contact contact = new Contact(1, "doe", "johndoe@gmail.com", "bb123456789", user, bank);
 
@@ -55,7 +51,7 @@ public class ContactServiceTest {
     @Test
     public void ShouldReturnListOfContacts() {
         //given
-        User user = new User(1,"john", "doe", "johndoe@gmail.com", "123456");
+        User user = new User(1, "john", "doe", "johndoe@gmail.com", "123456");
         Bank bank = new Bank("Crédit agricole melun nord", "123 albert Street", "77000", "Melun");
         Contact contact = new Contact(1, "doe", "johndoe@gmail.com", "bb123456789", user, bank);
         List<Contact> contacts = Collections.singletonList(contact);
@@ -73,7 +69,7 @@ public class ContactServiceTest {
     public void testCreateAccountShouldReturnAccountForNewAccount() throws Exception {
 
         //given
-        User user = new User(1,"john", "doe", "johndoe@gmail.com", "123456");
+        User user = new User(1, "john", "doe", "johndoe@gmail.com", "123456");
         Bank bank = new Bank("Crédit agricole melun nord", "123 albert Street", "77000", "Melun");
 
         Contact contact = new Contact();

@@ -12,10 +12,12 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 
 import java.time.LocalDate;
+import java.util.Collections;
+import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -37,16 +39,13 @@ public class ForeignTransactionServiceTest {
     @Mock
     private AccountRepository accountRepository;
 
-    @Mock
-    private Page<ForeignTransaction> foreignTransactionPage;
-
     @Test()
     public void shouldThrowExceptionWhenNotEnoughMoneyOnAccount() throws Exception {
         //given
-        User user = new User(1,"john", "doe", "johndoe@gmail.com", "123456");
+        User user = new User(1, "john", "doe", "johndoe@gmail.com", "123456");
         Bank bank = new Bank("Crédit agricole melun nord", "123 albert Street", "77000", "Melun");
         Contact contact = new Contact(1, "doe", "johndoe@gmail.com", "bb123456789", user, bank);
-        ForeignTransaction foreignTransaction=new ForeignTransaction(1,100, LocalDate.of(2021, 4, 16),"virement1","bb123456789",user,contact);
+        ForeignTransaction foreignTransaction = new ForeignTransaction(1, 100, LocalDate.of(2021, 4, 16), "virement1", "bb123456789", user, contact);
 
         try {
             when(foreignTransactionService.createTransaction(new ForeignTransaction())).thenThrow(new Exception("Not enough money on account"));
@@ -62,14 +61,13 @@ public class ForeignTransactionServiceTest {
 
         //given
 
-        User user = new User(1,"john", "doe", "johndoe@gmail.com", "123456");
+        User user = new User(1, "john", "doe", "johndoe@gmail.com", "123456");
         Bank bank = new Bank("Crédit agricole melun nord", "123 albert Street", "77000", "Melun");
         Contact contact = new Contact(1, "martin", "johndoe@gmail.com", "bb123456789", user, bank);
         Account account = new Account(3, user, bank, "bb123456789", 250, true);
 
 
-
-        ForeignTransaction foreignTransaction=new ForeignTransaction();
+        ForeignTransaction foreignTransaction = new ForeignTransaction();
         foreignTransaction.setDate(LocalDate.now());
         foreignTransaction.setAmount(100);
         foreignTransaction.setDesignation("Transaction 1");
@@ -97,24 +95,26 @@ public class ForeignTransactionServiceTest {
 
 
     @Test
-    public void shouldReturnPagedListOfForeignTransaction(){
-        int pageNo=0;
-        int pageSize=5;
-
-        User user = new User(1,"john", "doe", "johndoe@gmail.com", "123456");
+    public void shouldReturnPagedListOfForeignTransaction() {
+        // GIVEN
+        User user = new User(1, "john", "doe", "johndoe@gmail.com", "123456");
         Bank bank = new Bank("Crédit agricole melun nord", "123 albert Street", "77000", "Melun");
         Contact contact = new Contact(1, "martin", "johndoe@gmail.com", "bb123456789", user, bank);
-        ForeignTransaction foreignTransaction=new ForeignTransaction(1,100,LocalDate.of(2021, 4, 16),"test","bb123456789",user,contact);
+        ForeignTransaction foreignTransaction = new ForeignTransaction(1, 100, LocalDate.of(2021, 4, 16), "test", "bb123456789", user, contact);
+        List<ForeignTransaction> toutesTransactions = Collections.singletonList(foreignTransaction);
 
+        int pageNo = 0;
+        int pageSize = 5;
+        PageRequest pageable = PageRequest.of(pageNo, pageSize);
+        Page<ForeignTransaction> foreignTransactionPage = new PageImpl<>(toutesTransactions);
 
-        Pageable pageable = PageRequest.of(0, 5);
-        //Page<ForeignTransaction> foreignTransactionsPage =foreignTransactionRepository.findBySender(user, pageable);
-        when(foreignTransactionRepository.findBySender(user, PageRequest.of(pageNo, pageSize))).thenReturn((foreignTransactionPage));
+        when(foreignTransactionRepository.findBySender(user, pageable)).thenReturn(foreignTransactionPage);
 
-        Page<ForeignTransaction> foreignTransactionsCreatedPage=foreignTransactionService.pagination(user, pageNo, pageSize);
+        // WHEN
+        Page<ForeignTransaction> foreignTransactionsCreatedPage = foreignTransactionService.pagination(user, pageNo, pageSize);
 
-        //assertThat(foreignTransactionsCreatedPage.getTotalPages()).isEqualTo(0);
-        //System.out.println(foreignTransactionsCreatedPage.getTotalElements());
+        // THEN
+        assertThat(foreignTransactionsCreatedPage.getTotalPages()).isEqualTo(1);
     }
 }
 

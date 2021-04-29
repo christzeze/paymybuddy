@@ -1,9 +1,14 @@
 package com.openclassroooms.paymybuddy.mapperTest;
 
-import com.openclassroooms.paymybuddy.dto.*;
-import com.openclassroooms.paymybuddy.mapper.ForeignTransactionMapper;
+import com.openclassroooms.paymybuddy.dto.AccountDto;
+import com.openclassroooms.paymybuddy.dto.BankDto;
+import com.openclassroooms.paymybuddy.dto.TransactionDto;
+import com.openclassroooms.paymybuddy.dto.UserDto;
 import com.openclassroooms.paymybuddy.mapper.TransactionMapper;
-import com.openclassroooms.paymybuddy.model.*;
+import com.openclassroooms.paymybuddy.model.Account;
+import com.openclassroooms.paymybuddy.model.Bank;
+import com.openclassroooms.paymybuddy.model.Transaction;
+import com.openclassroooms.paymybuddy.model.User;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 
@@ -17,10 +22,10 @@ public class TransactionMapperTest {
     @Test
     public void shouldMapTransactionToDto() {
         //given
-        User user = new User(2,"jacques", "martin", "jacquesmartin@gmail.com", "123456");
+        User user = new User(2, "jacques", "martin", "jacquesmartin@gmail.com", "123456");
         Bank bank = new Bank("Crédit agricole melun nord", "123 albert Street", "77000", "Melun");
         Account account = new Account(3, user, bank, "bb123456789", 250, true);
-        Transaction transaction=new Transaction(1,"transaction 1",100, LocalDate.now(),"aa123456789",user,account);
+        Transaction transaction = new Transaction(1, "transaction 1", 100, LocalDate.now(), "aa123456789", user, account);
 
         //when
         TransactionDto transactionDto = transactionMapper.toDTO(transaction);
@@ -38,12 +43,12 @@ public class TransactionMapperTest {
     @Test
     public void shouldMapTransactionToEntity() {
         //given
-        UserDto userDto = new UserDto(2,"jacques", "martin", "jacquesmartin@gmail.com", "123456");
-        BankDto bankDto = new BankDto(1,"Crédit agricole melun nord", "123 albert Street", "77000", "Melun");
-        AccountDto accountDto=new AccountDto(3,"bb123456789",250,bankDto,userDto,true);
-        TransactionDto transactionDto=new TransactionDto("transaction 1",100, LocalDate.now(),"aa123456789",userDto,accountDto);
+        UserDto userDto = new UserDto(2, "jacques", "martin", "jacquesmartin@gmail.com", "123456");
+        BankDto bankDto = new BankDto(1, "Crédit agricole melun nord", "123 albert Street", "77000", "Melun");
+        AccountDto accountDto = new AccountDto(3, "bb123456789", 250, bankDto, userDto, true);
+        TransactionDto transactionDto = new TransactionDto("transaction 1", 100, LocalDate.now(), "aa123456789", userDto, accountDto);
         //when
-        Transaction transaction=transactionMapper.toEntity(transactionDto);
+        Transaction transaction = transactionMapper.toEntity(transactionDto);
 
         //then
         assertThat(transaction).isNotNull();

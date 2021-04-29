@@ -3,15 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+          integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
     <title>home</title>
 </head>
 <body>
-    <div th:replace="header :: header"></div>
-    <div th:insert="menu" id="menu"></div>
-    <div style="height:150px;"></div>
-    <div class="offset-md-3">
-        <img th:src="@{/images/homePage2.png}"/>
-    </div>
+<div th:replace="header :: header"></div>
+<div th:insert="menu" id="menu"></div>
+<div style="height:150px;"></div>
+<div class="offset-md-3">
+    <img th:src="@{/images/homePage2.png}"/>
+</div>
 </body>
 </html>

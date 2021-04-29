@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+          integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
     <title>Foreign Contact</title>
 </head>
 <body>
@@ -24,10 +25,10 @@
         <form th:action="@{/foreigncontact}" method="post" th:object="${foreigncontact}">
             <div class="row">
 
-                <select hidden  th:field="*{user.id}" >
+                <select hidden th:field="*{user.id}">
                     <option th:each="emitter : ${emitter}"
                             th:value="${emitter.id}"
-                            th:text="${emitter.email}"> </option>
+                            th:text="${emitter.email}"></option>
                 </select>
 
                 <div class="col-md-4 "></div>
@@ -35,7 +36,8 @@
                 <div class="col-md-4 "></div>
 
                 <div class="col-md-4 "></div>
-                <div class="col-md-4 "> <input id="lastName" class="form-control pt-4 " th:field="*{lastName}" required autofocus="autofocus" /></div>
+                <div class="col-md-4 "><input id="lastName" class="form-control pt-4 " th:field="*{lastName}" required
+                                              autofocus="autofocus"/></div>
                 <div class="col-md-4 "></div>
 
                 <div class="col-md-4 "></div>
@@ -43,7 +45,8 @@
                 <div class="col-md-4 "></div>
 
                 <div class="col-md-4 "></div>
-                <div class="col-md-4 "><input id="email" class="form-control pt-4 " th:field="*{email}" required autofocus="autofocus" /></div>
+                <div class="col-md-4 "><input id="email" class="form-control pt-4 " th:field="*{email}" required
+                                              autofocus="autofocus"/></div>
                 <div class="col-md-4 "></div>
 
                 <div class="col-md-4 "></div>
@@ -52,10 +55,10 @@
 
                 <div class="col-md-4 "></div>
                 <div class="col-md-4 ">
-                    <select class="form-control pt-4" th:field="*{bank.id}" >
+                    <select class="form-control pt-4" th:field="*{bank.id}">
                         <option th:each="bank : ${banks}"
                                 th:value="${bank.getId()}"
-                                th:text="${bank.name}"> </option>
+                                th:text="${bank.name}"></option>
                     </select>
                 </div>
                 <div class="col-md-4 "><a href="bankregistration" class="pt-4">Saisir une nouvelle banque</a></div>
@@ -65,14 +68,17 @@
                 <div class="col-md-4 "></div>
 
                 <div class="col-md-4 "></div>
-                <div class="col-md-4 "><input id="iban" class="form-control pt-4" th:field="*{iban}" required autofocus="autofocus" /></div>
+                <div class="col-md-4 "><input id="iban" class="form-control pt-4" th:field="*{iban}" required
+                                              autofocus="autofocus"/></div>
                 <div class="col-md-4 "></div>
             </div>
 
             <div class="row pt-4">
 
                 <div class="col-md-4"></div>
-                <div class="col-md-4 "><button type="submit" class="btn btn-success offset-md-5 ">Register</button></div>
+                <div class="col-md-4 ">
+                    <button type="submit" class="btn btn-success offset-md-5 ">Register</button>
+                </div>
                 <div class="col-md-4 "></div>
 
             </div>

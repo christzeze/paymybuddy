@@ -18,8 +18,7 @@ import java.util.Collections;
 import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.when;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -36,7 +35,7 @@ public class AccountServiceTest {
     public void testCreateAccountShouldReturnNewBankForExistingAccount() {
 
         //given
-        User user = new User(1,"john", "doe", "johndoe@gmail.com", "123456");
+        User user = new User(1, "john", "doe", "johndoe@gmail.com", "123456");
         Bank bank = new Bank("Crédit agricole melun nord", "123 albert Street", "77000", "Melun");
 
         Account account = new Account();
@@ -64,7 +63,7 @@ public class AccountServiceTest {
     public void testCreateAccountShouldoReturnAccountInformationsForNewAccount() {
 
         //given
-        User user = new User(1,"john", "doe", "johndoe@gmail.com", "123456");
+        User user = new User(1, "john", "doe", "johndoe@gmail.com", "123456");
         Bank bank = new Bank("Crédit agricole melun nord", "123 albert Street", "77000", "Melun");
 
         Account account = new Account();
@@ -92,8 +91,8 @@ public class AccountServiceTest {
     @Test
     public void ShouldReturnListOfAccount() {
         //given
-        User user = new User(1,"john", "doe", "johndoe@gmail.com", "123456");
-        Account account = new Account(3, new User(1,"john", "doe", "johndoe@gmail.com", "123456"), new Bank("Crédit agricole de melun sud", "123456 street", "77000", "MELUN"), "bb123456789", 20, true);
+        User user = new User(1, "john", "doe", "johndoe@gmail.com", "123456");
+        Account account = new Account(3, new User(1, "john", "doe", "johndoe@gmail.com", "123456"), new Bank("Crédit agricole de melun sud", "123456 street", "77000", "MELUN"), "bb123456789", 20, true);
         List<Account> accounts = Collections.singletonList(account);
         when(accountRepository.findByUserId(user.getId())).thenReturn(accounts);
 
@@ -108,7 +107,7 @@ public class AccountServiceTest {
     @Test
     public void ShouldReturnListOfUserAccount() {
         //given
-        List<Account> accounts = Arrays.asList(new Account(3, new User(1,"john", "doe", "johndoe@gmail.com", "123456"), new Bank("Crédit agricole de melun sud", "123456 street", "77000", "MELUN"), "bb123456789", 20, true));
+        List<Account> accounts = Arrays.asList(new Account(3, new User(1, "john", "doe", "johndoe@gmail.com", "123456"), new Bank("Crédit agricole de melun sud", "123456 street", "77000", "MELUN"), "bb123456789", 20, true));
         when(accountRepository.findByUserAccountIsTrue()).thenReturn(accounts);
 
         //when

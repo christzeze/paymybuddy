@@ -1,11 +1,8 @@
 package com.openclassroooms.paymybuddy.mapperTest;
 
 import com.openclassroooms.paymybuddy.dto.BankDto;
-import com.openclassroooms.paymybuddy.dto.UserDto;
 import com.openclassroooms.paymybuddy.mapper.BankMapper;
-import com.openclassroooms.paymybuddy.mapper.UserMapper;
 import com.openclassroooms.paymybuddy.model.Bank;
-import com.openclassroooms.paymybuddy.model.User;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 
@@ -33,10 +30,10 @@ public class BankMapperTest {
     @Test
     public void shouldMapBankToEntity() {
         //given
-        BankDto bankdto = new BankDto(1,"Crédit agricole melun nord", "123 albert Street", "77000", "Melun");
+        BankDto bankdto = new BankDto(1, "Crédit agricole melun nord", "123 albert Street", "77000", "Melun");
 
         //when
-        Bank bank=bankMapper.toEntity(bankdto);
+        Bank bank = bankMapper.toEntity(bankdto);
 
         //then
         assertThat(bank).isNotNull();

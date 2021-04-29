@@ -8,7 +8,6 @@ public interface BankService {
     Bank createAccount(Bank bank);
 
 
-
     List<Bank> findAll();
 
 }

@@ -18,11 +18,10 @@ public class BankServiceImpl implements BankService {
 
     @Override
     public Bank createAccount(Bank bank) {
-        Bank bankName=bankRepository.findByName(bank.getName());
-        if (bankName==null) {
+        Bank bankName = bankRepository.findByName(bank.getName());
+        if (bankName == null) {
             return bankRepository.save(bank);
-        }
-        else {
+        } else {
             bankName.setName(bank.getName());
             bankName.setAddress(bank.getAddress());
             bankName.setCity(bank.getCity());

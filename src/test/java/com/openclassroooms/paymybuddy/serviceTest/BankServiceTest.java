@@ -1,11 +1,7 @@
 package com.openclassroooms.paymybuddy.serviceTest;
 
-import com.openclassroooms.paymybuddy.model.Account;
 import com.openclassroooms.paymybuddy.model.Bank;
-import com.openclassroooms.paymybuddy.model.User;
-import com.openclassroooms.paymybuddy.repository.AccountRepository;
 import com.openclassroooms.paymybuddy.repository.BankRepository;
-import com.openclassroooms.paymybuddy.service.impl.AccountServiceImpl;
 import com.openclassroooms.paymybuddy.service.impl.BankServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -33,7 +29,7 @@ public class BankServiceTest {
     public void testModifyBankShouldModifyBankInformationsForExistingBank() {
 
         //given
-        Bank bank=new Bank();
+        Bank bank = new Bank();
         bank.setId(1);
         bank.setName("LCL Melun Nord");
         bank.setAddress("12 rue des oiseaux");
@@ -57,7 +53,7 @@ public class BankServiceTest {
     public void testCreateBankShouldReturnNewBank() {
 
         //given
-        Bank bank=new Bank();
+        Bank bank = new Bank();
         bank.setId(1);
         bank.setName("LCL Melun Nord");
         bank.setAddress("12 rue des oiseaux");

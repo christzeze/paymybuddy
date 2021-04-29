@@ -4,10 +4,8 @@ import com.openclassroooms.paymybuddy.dto.AccountDto;
 import com.openclassroooms.paymybuddy.dto.BankDto;
 import com.openclassroooms.paymybuddy.dto.UserDto;
 import com.openclassroooms.paymybuddy.mapper.AccountMapper;
-import com.openclassroooms.paymybuddy.mapper.BankMapper;
 import com.openclassroooms.paymybuddy.model.Account;
 import com.openclassroooms.paymybuddy.model.Bank;
-import com.openclassroooms.paymybuddy.model.Contact;
 import com.openclassroooms.paymybuddy.model.User;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
@@ -20,7 +18,7 @@ public class AccountMapperTest {
     @Test
     public void shouldMapAccountToDto() {
         //given
-        User user = new User(1,"john", "doe", "johndoe@gmail.com", "123456");
+        User user = new User(1, "john", "doe", "johndoe@gmail.com", "123456");
         Bank bank = new Bank("Crédit agricole melun nord", "123 albert Street", "77000", "Melun");
         Account account = new Account(3, user, bank, "bb123456789", 250, true);
 
@@ -40,11 +38,11 @@ public class AccountMapperTest {
     @Test
     public void shouldMapAccountToEntity() {
         //given
-        UserDto userDto = new UserDto(1,"john", "doe", "johndoe@gmail.com", "123456");
-        BankDto bankDto = new BankDto(1,"Crédit agricole melun nord", "123 albert Street", "77000", "Melun");
-        AccountDto accountDto=new AccountDto(3,"bb123456789",250,bankDto,userDto,true);
+        UserDto userDto = new UserDto(1, "john", "doe", "johndoe@gmail.com", "123456");
+        BankDto bankDto = new BankDto(1, "Crédit agricole melun nord", "123 albert Street", "77000", "Melun");
+        AccountDto accountDto = new AccountDto(3, "bb123456789", 250, bankDto, userDto, true);
         //when
-        Account account=accountMapper.toEntity(accountDto);
+        Account account = accountMapper.toEntity(accountDto);
 
         //then
         assertThat(account).isNotNull();

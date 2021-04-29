@@ -8,7 +8,6 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.core.Authentication;
@@ -49,7 +48,7 @@ public class UserServiceTest {
     @Test
     public void shouldThrowExceptionWhenUserEmailOrPasswordAreInvalid() throws Exception {
         //given
-        User user = new User(1,"john", "doe", "johndoe@gmail.com", "123456");
+        User user = new User(1, "john", "doe", "johndoe@gmail.com", "123456");
 
         try {
             when(userService.loadUserByUsername(anyString())).thenThrow(new UsernameNotFoundException("Invalid username or password."));
@@ -70,6 +69,7 @@ public class UserServiceTest {
         String result = encoder.encode("password");
         assertThat(encoder.matches("", result)).isFalse();
     }
+
     @Test
     public void $2yMatches() {
         // $2y is default version
@@ -80,17 +80,16 @@ public class UserServiceTest {
     }
 
 
-
     @Test
     public void shouldReturnUserWhenUserSave() {
 
         //given
-        User user = new User(1,"john", "doe", "johndoe@gmail.com", "123456");
+        User user = new User(1, "john", "doe", "johndoe@gmail.com", "123456");
         String result = passwordEncoder.encode("123456");
         when(userService.save(user)).thenReturn(user);
 
         //when
-        User userCreated=userService.save(user);
+        User userCreated = userService.save(user);
 
         //then
         assertThat(userCreated.getPassword()).isEqualTo(result);
